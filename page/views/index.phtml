@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="<?= $siteConfig->language ?>">
+
+<head>
+  <?php include __DIR__ . '/partials/head-index.phtml' ?>
+</head>
+
+<body>
+  <?php include __DIR__ . '/partials/header.phtml' ?>
+
+  <?php
+    foreach ($entities as $entity) :
+      include __DIR__ . '/partials/article.phtml';
+    endforeach;
+  ?>
+
+  <?php include __DIR__ . '/partials/footer.phtml' ?>
+
+</body>
+
+</html>

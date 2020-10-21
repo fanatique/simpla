@@ -1,0 +1,32 @@
+{
+    "name": "fanatique/simpla",
+    "description": "Alexander Thomas <me@alexander-thomas.net>",
+    "type": "project",
+    "require": {
+        "erusev/parsedown": "^1.7",
+        "pagerange/metaparsedown": "^1.0",
+        "suin/php-rss-writer": "^1.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Thomas",
+            "email": "me@alexander-thomas.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "": "src/" }
+    },
+    "scripts": {
+        "setup": "@php app/scripts/setup.php",
+        "generate-content": "@php app/scripts/generate-content.php",
+        "copy-assets": "@php app/scripts/copy-assets.php",
+        "copy-content-media": "@php app/scripts/copy-content-media.php",
+        "build": [
+            "@setup",
+            "@generate-content",
+            "@copy-assets",
+            "@copy-content-media"
+        ]
+    }
+}

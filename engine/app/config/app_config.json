@@ -1,0 +1,30 @@
+{
+  "folders": {
+    "assets": "./page/views/assets",
+    "hello": "bello",
+    "dist": "/dist",
+    "dist_tags": "/dist/tags",
+    "content_images": "./page/content/img",
+    "dist_content_images": "/dist/img"
+  },
+  "views": {
+    "post": "./page/views/post.phtml",
+    "index": "./page/views/index.phtml",
+    "page": "./page/views/page.phtml",
+    "tag": "./page/views/tag.phtml",
+    "menu": [
+      "./page/views/menus/main.phtml",
+      "./page/views/menus/footer.phtml"
+    ]
+  },
+  "content": {
+    "posts": "./page/content/posts",
+    "pages": "./page/content/pages"
+  },
+  "file_extension_content": "html",
+  "file_extension_feed": "xml",
+  "slugs": {
+    "index": "index",
+    "feed": "feed"
+  }
+}

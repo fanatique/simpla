@@ -1,0 +1,11 @@
+{
+  "base_url": "",
+  "tag_path": "tags",
+  "title": "A Demo Page",
+  "tagline": "yes, just a demo",
+  "description": "Lorem ipsum dolor sit amet.",
+  "language": "en-US",
+  "author": "Alexander Thomas",
+  "twitter_handle": "@fanatique",
+  "github_handle": "@fanatique"
+}

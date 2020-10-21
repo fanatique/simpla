@@ -1,0 +1,32 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title><?= $siteConfig->title ?> – <?php !is_null($entity->get('title')) ? print $entity->get('title') : print $siteConfig->tagline; ?></title>
+<meta name="description" content="<?php !is_null($entity->get('description')) ? print $entity->get('description') : print $siteConfig->desciption; ?>">
+
+<?php if (is_object($entity)) : ?>
+    <link rel="canonical" href="<?= $entity->getSlug($siteConfig->base_url) ?>.<?= $appConfig->file_extension_content ?>" />
+<?php else : ?>
+    <link rel="canonical" href="<?= $siteConfig->base_url . '/' . $slug ?>.<?= $appConfig->file_extension_content ?>" />
+<?php endif; ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+<link rel="stylesheet" href="<?= $siteConfig->base_url ?>/css/new.theme.simpla.css">
+<script src="<?= $siteConfig->base_url ?>/js/main.js" defer></script>
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="<?= $siteConfig->title ?> – <?php !is_null($entity->get('title')) ? print $entity->get('title') : print $siteConfig->tagline; ?>" />
+<meta property="og:description" content="<?= $entity->get('description') ?>" />
+<?php if ($entity->get('image') !== null) : ?>
+    <meta property="og:image" content="<?= $siteConfig->base_url ?>/img/<?= $entity->get('image') ?>" />
+<?php endif; ?>
+<meta property="og:url" content="" />
+
+<meta property="og:site_name" content="<?= $siteConfig->title ?>" />
+<meta name="twitter:title" content="<?= $siteConfig->title ?> – <?php !is_null($entity->get('title')) ? print $entity->get('title') : print $siteConfig->tagline; ?>">
+<meta name="twitter:description" content="<?php !is_null($entity->get('description')) ? print $entity->get('description') : print $siteConfig->desciption; ?>">
+<?php if ($entity->get('image') !== '') : ?>
+    <meta name="twitter:image" content="<?= $siteConfig->base_url ?>/img/<?= $entity->get('image') ?>`">
+<?php endif; ?>
+
+<meta name="twitter:site" content="<?= $siteConfig->twitter_handle ?>">
+<meta name="twitter:creator" content="<?= $siteConfig->twitter_handle ?>">

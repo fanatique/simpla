@@ -1,0 +1,14 @@
+<article>
+    <a href="<?= $entity->getSlug($siteConfig->base_url) ?>.<?= $appConfig->file_extension_content ?>" rel="permalink" title="<?= $entity->get('title') ?>">
+        <h1><?= $entity->get('title') ?></h1>
+    </a>
+    <?php if (!is_null($entity->get('image'))) : ?>
+        <img src="<?= $siteConfig->base_url ?>/img/<?= $entity->get('image') ?>" width="100%" height="200" alt="<?= $entity->get('title') ?>" title="<?= $entity->get('title') ?>" loading="lazy">
+    <?php endif; ?>
+
+    <?= $entity->get('content') ?>
+
+    <footer>
+        <p><time pubdate date="<?= $entity->get('created_at')->format('Y-m-d') ?>"><em><?= $entity->get('created_at')->format('Y-m-d') ?></em></time> <span class="nowrap">by <?php !is_null($entity->get('author')) ? print $entity->get('author') : print $siteConfig->author ?></span></p>
+    </footer>
+</article>

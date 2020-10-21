@@ -1,0 +1,32 @@
+<article>
+    <h4><time pubdate date="<?= $entity->get('created_at')->format('Y-m-d') ?>"><em><?= $entity->get('created_at')->format('Y-m-d') ?></em></time></h4>
+        <a href="<?= $entity->getSlug($siteConfig->base_url) ?>.<?= $appConfig->file_extension_content ?>" class="article__permalink" rel="permalink" title="<?= $entity->get('title') ?>">
+            <h1 class="article__title"><?= $entity->get('title') ?></h1>
+        </a>
+    <?php if ($entity->get('image') !== null) : ?>
+        <img src="<?= $siteConfig->base_url ?>/img/<?= $entity->get('image') ?>" width="100%" height="200" alt="<?= htmlentities($entity->get('title')) ?>" title="<?= htmlentities($entity->get('title')) ?>" loading="lazy">
+    <?php endif; ?>
+
+    <?php if ($displayExcerpt === true && (($excerpt = $entity->getExcerpt()) !== $entity->get('content'))) : ?>
+        <?= $excerpt ?>
+        <?php if ($displayExcerpt === true) : ?>
+            <div class="article__readon-overlay">
+                <a href="<?= $entity->getSlug($siteConfig->base_url) ?>.<?= $appConfig->file_extension_content ?>">keep on reading</a>
+            </div>
+        <?php endif; ?>
+    <?php else : ?>
+        <?= $entity->get('content') ?>
+        <footer class="article__footer">
+            <a href="<?= $entity->getSlug($siteConfig->base_url) ?>">Permalink</a> &middot;
+            <?php if (count($entity->get('tags')) > 0) : ?>
+                Tags:
+                <?php foreach ((array) $entity->get('tags') as $key => $tag) : ?>
+                    <a href="<?= $siteConfig->base_url ?>/<?= $siteConfig->tag_path ?>/<?= strtolower($tag) ?>.<?= $appConfig->file_extension_content ?>"><?= $tag ?></a>
+                    <?php ($key === array_key_last($entity->get('tags'))) ?: print ','; ?>
+                <?php endforeach; ?>
+                &middot;
+            <?php endif; ?>
+            <span class="nowrap">by <?php !is_null($entity->get('author')) ? print $entity->get('author') : print $siteConfig->author ?></span>
+        </footer>
+    <?php endif; ?>
+</article>

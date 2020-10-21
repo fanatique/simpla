@@ -1,0 +1,18 @@
+<nav>
+  <ul>
+    <?php
+    foreach ($entities as $entity) :
+      if ($entity->get('menu') === 'main' && $entity->get('status') === 'published') :
+    ?><li><p><a href="<?= $entity->getSlug($siteConfig->base_url) ?>.<?= $appConfig->file_extension_content ?>"><?= $entity->get('title') ?></a></p></li>
+    <?php
+      endif;
+    endforeach;
+    ?>
+  </ul>
+  <hr />
+  <ul class="nav-social">
+    <li><a href="https://twitter.com/<?= $siteConfig->twitter_handle ?>" rel="twitter"><small>Twitter</small></a></li>
+    <li><a href="https://github.com/<?= $siteConfig->github_handle ?>" rel="github"><small>Github</small></a></li>
+    <li><a href="/feed.xml" rel="feed"><small>Feed</small></a></li>
+  <ul>
+</nav>
