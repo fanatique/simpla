@@ -26,8 +26,8 @@ trait ExtractAndSortEntitiesTrait
             if ($entity->get('status') !== 'published') {
                 continue;
             }
-            $createdAt = $entity->get('created_at')->format('Y-m-d');
-            $entities[$createdAt] = $entity;
+            $key = $entity->get('created_at')->format('Y-m-d') . '-' . random_int(0, 100);
+            $entities[$key] = $entity;
         }
         uksort($entities, function ($time1, $time2) {
             if (strtotime($time1) < strtotime($time2))

@@ -1,7 +1,7 @@
 ---
 title: 'Another Blog Post with a Title'
 status: 'published'
-created_at: '2020-10-19'
+created_at: '2020-10-21'
 tags: static-websites, blogging
 ---
 
