@@ -51,7 +51,19 @@ Done.
 
 
 - [Getting Started Guide](documentation/01.getting-started.md)
-- [Setting up a page](documentation/02.setting-up-a-page.md)
+- [Setting up a Page](documentation/02.setting-up-a-page.md)
 - [Creating Content](documentation/03.creating-content.md)
 - [Extending Simpla](documentation/04.extending-simpla.md)
+
+## Participation
+
+I've written Simpla mainly for myself (it actually didn't even have a
+name at first), but I kinda like the idea and had to document the thing
+anyway in order to remember what I've done here...
+
+If you have ideas on how to improve Simpla, feel welcome to suggest it
+in the Issues section or (preferred) hand in a PR.
+
+Please note that this is not a showcase project, but a tool that serves a
+specific usecase. Suggestions on coding styles and beauty will be friendly ignored, ok?
 
