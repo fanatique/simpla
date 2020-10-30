@@ -21,15 +21,15 @@ Simpla supports:
 - Writing Blog Posts and Static Pages using Markdown.
 - It generates index pages for blog posts and tags.
 - It also generates an RSS Feed (because we ❤️ independent publications)!
-- Sites can be added to menus, which are declared in the templates. That
+- Pages can be added to menus, which are declared in the templates. That
   allows to have a main menu and a footer menu.
 
 _Everything else is up to you!_
 
-Simpla uses the world famous Personal Home Page Tools (PHP) as a
+Simpla uses the world famous _Personal Home Page Tools_ (PHP) as a
 templating language and so there is virtually no limit on what you can
 do for improving SEO, deliver your pages with a good accessibility and
-making sure that they ar eproperly displayed on mobile devices.
+making sure that they are properly displayed on mobile devices.
 
 ## Intended Usage
 
@@ -42,7 +42,7 @@ Guide](documentation/01.getting-started.md)
 3. Generate your website by running:
 
 ```shell
-$> sudo docker run -it -v /path/to/your/local/page:/usr/src/simpla/page --rm fanatique/simpla:latest
+$ sudo docker run -it -v /path/to/your/local/page:/usr/src/simpla/page --rm fanatique/simpla:latest
 ```
 
 Done.
