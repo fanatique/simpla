@@ -42,7 +42,7 @@ Guide](documentation/01.getting-started.md)
 3. Generate your website by running:
 
 ```shell
-$ sudo docker run -it -v /path/to/your/local/page:/usr/src/simpla/page --rm fanatique/simpla:latest
+$ sudo docker run -it -v /path/local/page:/usr/src/simpla/page -v /path/local/dist:/dist --rm fanatique/simpla:latest
 ```
 
 Done.
