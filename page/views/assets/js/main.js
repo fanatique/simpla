@@ -1,10 +1,4 @@
-document.querySelector('.header__nav-button').addEventListener('click', function () {
-  document.querySelector('.main-nav').classList.toggle('main-nav-show');
-  this.querySelector('.header__nav-icon').classList.toggle('header__nav-icon--show');
-  document.querySelector('body').classList.toggle('body--no-scroll');
-});
-
-
+// Initialize highlight.js if a the current page contains `pre` tags
 if (document.querySelectorAll('pre').length > 0) {
   const head = document.getElementsByTagName('head')[0];
   const link = document.createElement('link');
