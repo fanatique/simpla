@@ -37,9 +37,8 @@ The generator is designed to be used through the public Docker image.
 
 1. Download the `/page` folder from this repo and adjust it to your needs (there's more
    information available in the [Getting Started
-Guide](documentation/01.getting-started.md)
-2. Pull the generator image from Dockerhub: `sudo docker pull fanatique/simpla:latest`
-3. Generate your website by running:
+Guide](documentation/01.getting-started.md)).
+2. Generate your website by running:
 
 ```shell
 $ sudo docker run -it -v /path/local/page:/usr/src/simpla/page -v /path/local/dist:/dist --rm fanatique/simpla:latest
