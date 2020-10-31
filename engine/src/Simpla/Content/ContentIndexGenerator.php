@@ -18,7 +18,6 @@ use Simpla\Content\ExtractAndSortEntitiesTrait;
 
 class ContentIndexGenerator implements ContentGeneratorInterface
 {
-
     use ExtractAndSortEntitiesTrait;
 
     protected $template;

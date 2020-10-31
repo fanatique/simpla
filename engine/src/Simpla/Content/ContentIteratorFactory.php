@@ -18,7 +18,6 @@ use Simpla\Content\ContentIterator;
 
 class ContentIteratorFactory
 {
-
     protected $entityFactory;
 
     public function __construct(EntityFactory $entityFactory)

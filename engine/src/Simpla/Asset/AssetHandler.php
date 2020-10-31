@@ -15,12 +15,11 @@ namespace Simpla\Asset;
 
 class AssetHandler
 {
-    /** 
+    /**
      * @see https://stackoverflow.com/a/2050909
      */
     public function copyRecursively(string $sourceFolder, string $distFolder): void
     {
-
         if (!is_writable(dirname($sourceFolder)) || !is_writable(dirname($distFolder))) {
             throw new \InvalidArgumentException($sourceFolder . ' or ' . $distFolder . ' are not writeable.');
         }
@@ -39,15 +38,15 @@ class AssetHandler
         closedir($dir);
     }
 
-     /**
-     * Recursively deletes a directory tree.
-     *
-     * @param string $folder         The directory path.
-     * @param bool   $keepRootFolder Whether to keep the top-level folder.
-     *
-     * @return bool TRUE on success, otherwise FALSE.
-     * @see https://gist.github.com/mindplay-dk/a4aad91f5a4f1283a5e2
-     */
+    /**
+    * Recursively deletes a directory tree.
+    *
+    * @param string $folder         The directory path.
+    * @param bool   $keepRootFolder Whether to keep the top-level folder.
+    *
+    * @return bool TRUE on success, otherwise FALSE.
+    * @see https://gist.github.com/mindplay-dk/a4aad91f5a4f1283a5e2
+    */
     private function deleteTree($folder, $keepRootFolder = true): bool
     {
         // Handle bad arguments.
@@ -77,7 +76,6 @@ class AssetHandler
     public function removeAndCreateFolders(array $folders): void
     {
         foreach ($folders as $folder) {
-
             if (!is_writable(dirname($folder))) {
                 throw new \InvalidArgumentException($folder . ' is not writeable.');
             }

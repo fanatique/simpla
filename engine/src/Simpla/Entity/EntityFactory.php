@@ -17,20 +17,19 @@ use Pagerange\Markdown\MetaParsedown;
 
 class EntityFactory
 {
+    protected $markdownParser;
 
-  protected $markdownParser;
+    public function __construct(MetaParsedown $markdownParser)
+    {
+        $this->markdownParser = $markdownParser;
+    }
 
-  public function __construct(MetaParsedown $markdownParser)
-  {
-    $this->markdownParser = $markdownParser;
-  }
-
-  public function createFromMarkdown(string $pathToFile, string $type): EntityInterface
-  {
-    $fileContents = file_get_contents($pathToFile);
-    $entityData = $this->markdownParser->meta($fileContents);
-    $entityData['content'] = $this->markdownParser->text($fileContents);
-    switch ($type) {
+    public function createFromMarkdown(string $pathToFile, string $type): EntityInterface
+    {
+        $fileContents = file_get_contents($pathToFile);
+        $entityData = $this->markdownParser->meta($fileContents);
+        $entityData['content'] = $this->markdownParser->text($fileContents);
+        switch ($type) {
       case Post::TYPE:
         $entity = Post::createFromArray($entityData);
         break;
@@ -41,6 +40,6 @@ class EntityFactory
         throw new EntityException(static::class . ': could not create Entity. ' . $type . ' is invalid.');
         break;
     }
-    return $entity;
-  }
+        return $entity;
+    }
 }

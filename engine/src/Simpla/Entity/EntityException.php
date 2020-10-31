@@ -14,4 +14,5 @@ declare(strict_types=1);
 namespace Simpla\Entity;
 
 class EntityException extends \Exception
-{ }
+{
+}

@@ -30,12 +30,13 @@ trait ExtractAndSortEntitiesTrait
             $entities[$key] = $entity;
         }
         uksort($entities, function ($time1, $time2) {
-            if (strtotime($time1) < strtotime($time2))
+            if (strtotime($time1) < strtotime($time2)) {
                 return 1;
-            else if (strtotime($time1) > strtotime($time2))
+            } elseif (strtotime($time1) > strtotime($time2)) {
                 return -1;
-            else
+            } else {
                 return 0;
+            }
         });
         return $entities;
     }

@@ -15,7 +15,6 @@ namespace Simpla\Container;
 
 class Container
 {
-
     protected $store = [];
 
     public function __set(string $key, $value): void

@@ -15,7 +15,6 @@ namespace Simpla\Entity;
 
 abstract class AbstractEntity implements EntityInterface
 {
-
     protected $data = [];
 
     private function __construct()
@@ -36,7 +35,7 @@ abstract class AbstractEntity implements EntityInterface
         return $instance;
     }
 
-    abstract  public function set(string $key, $value): void;
+    abstract public function set(string $key, $value): void;
 
     public function get($identifier)
     {

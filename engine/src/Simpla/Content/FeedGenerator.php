@@ -20,7 +20,6 @@ use \Suin\RSSWriter\Item;
 
 class FeedGenerator implements ContentGeneratorInterface
 {
-
     use ExtractAndSortEntitiesTrait;
 
     protected $feed;
@@ -42,7 +41,6 @@ class FeedGenerator implements ContentGeneratorInterface
 
     public function generate(ContentIterator $posts): array
     {
-
         $entities = $this->extractAndSortEntities($posts);
 
         foreach ($entities as $entity) {

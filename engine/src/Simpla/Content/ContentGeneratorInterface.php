@@ -15,5 +15,4 @@ namespace Simpla\Content;
 
 interface ContentGeneratorInterface
 {
-    
 }

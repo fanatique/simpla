@@ -22,5 +22,4 @@ interface EntityInterface
     public function set(string $key, $value): void;
 
     public function getSlug(string $baseUrl = ''): string;
-    
 }

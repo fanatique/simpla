@@ -32,7 +32,6 @@ class ContentGenerator implements ContentGeneratorInterface
     {
         $generatedEntities = [];
         foreach ($contentItems as $contentItem) {
-            
             ob_start();
             /** @var ContentIterator $contentItem */
             $entity = $contentItem->getEntity();
