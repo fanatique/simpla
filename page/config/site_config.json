@@ -6,6 +6,11 @@
   "description": "Lorem ipsum dolor sit amet.",
   "language": "en-US",
   "author": "Alexander Thomas",
+  "slugs": {
+    "post_index": "blog",
+    "feed": "feed"
+  },
+  "static_homepage": true,
   "twitter_handle": "@fanatique",
   "github_handle": "@fanatique"
 }

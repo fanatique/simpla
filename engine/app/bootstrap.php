@@ -47,6 +47,8 @@ $container->contentIteratorFactory = function () use ($container): ContentIterat
     return new ContentIteratorFactory($container('entityFactory'));
 };
 
+// TODO Add view folders and content folders to generators
+
 $container->menuGenerator = function () use ($container): MenuGenerator {
     return new MenuGenerator(
         $container('appConfig')->views->menu,
@@ -76,7 +78,7 @@ $container->pageGenerator = function () use ($container): ContentGenerator {
 $container->postIndexGenerator = function () use ($container): ContentIndexGenerator {
     $postIndexGenerator = new ContentIndexGenerator(
         $container('appConfig')->views->index,
-        $container('appConfig')->slugs->index,
+        $container('siteConfig')->slugs->post_index,
         $container('siteConfig'),
         $container('appConfig')
     );
@@ -94,7 +96,7 @@ $container->tagIndexGenerator = function (array $generatedMenus = []) use ($cont
 
 $container->feedGenerator = function () use ($container): FeedGenerator {
     $feedGenerator = new FeedGenerator(
-        $container('appConfig')->slugs->feed,
+        $container('siteConfig')->slugs->feed,
         $container('siteConfig'),
         $container('appConfig')
     );

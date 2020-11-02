@@ -1,30 +1,27 @@
 {
   "folders": {
     "assets": "./page/views/assets",
-    "hello": "bello",
     "dist": "/dist",
     "dist_tags": "/dist/tags",
     "content_images": "./page/content/img",
-    "dist_content_images": "/dist/img"
+    "dist_content_images": "/dist/img",
+    "views": "./page/views/",
+    "content": "./page/content/"
   },
   "views": {
-    "post": "./page/views/post.phtml",
-    "index": "./page/views/index.phtml",
-    "page": "./page/views/page.phtml",
-    "tag": "./page/views/tag.phtml",
+    "post": "post.phtml",
+    "post_index": "index.phtml",
+    "page": "page.phtml",
+    "tag": "tag.phtml",
     "menu": [
-      "./page/views/menus/main.phtml",
-      "./page/views/menus/footer.phtml"
+      "menus/main.phtml",
+      "menus/footer.phtml"
     ]
   },
   "content": {
-    "posts": "./page/content/posts",
-    "pages": "./page/content/pages"
+    "posts": "posts",
+    "pages": "pages"
   },
   "file_extension_content": "html",
-  "file_extension_feed": "xml",
-  "slugs": {
-    "index": "index",
-    "feed": "feed"
-  }
+  "file_extension_feed": "xml"
 }

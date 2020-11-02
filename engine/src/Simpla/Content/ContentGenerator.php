@@ -17,13 +17,13 @@ use Simpla\Content\ContentIterator;
 
 class ContentGenerator implements ContentGeneratorInterface
 {
-    protected $template;
+    protected $defaultTemplate;
     protected $siteConfig;
     protected $appConfig;
 
-    public function __construct(string $template, object $siteConfig, object $appConfig)
+    public function __construct(string $defaultTemplate, object $siteConfig, object $appConfig)
     {
-        $this->template = $template;
+        $this->defaultTemplate = $defaultTemplate;
         $this->siteConfig = $siteConfig;
         $this->appConfig = $appConfig;
     }
@@ -46,7 +46,7 @@ class ContentGenerator implements ContentGeneratorInterface
             $appConfig = $this->appConfig;
             
             // Render template (including immediately executes script!)
-            include $this->template;
+            include $entity->get('template') ?? $this->defaultTemplate;
             
             // Write buffer into output array
             $generatedEntities[$entity->getSlug()] = ob_get_contents();
