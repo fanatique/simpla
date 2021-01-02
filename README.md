@@ -19,9 +19,11 @@ the machines for not doing it! 😄
 Simpla supports:
 
 - Writing Blog Posts and Static Pages using Markdown.
-- It generates index pages for blog posts and tags.
+- It generates index pages for blog posts and tags and you can decide
+  whether the start page should be a Page or an index with your latest
+  Posts
 - It also generates an RSS Feed (because we ❤️  independent publications)!
-- Pages can be added to menus, which are declared in the templates. That
+- Last but not least you can define menus, which are declared in the templates. That
   allows to have a main menu and a footer menu.
 
 _Everything else is up to you!_
@@ -64,5 +66,5 @@ If you have ideas on how to improve Simpla, feel welcome to suggest it
 in the Issues section or (preferred) hand in a PR.
 
 Please note that this is not a showcase project, but a tool that serves a
-specific usecase. Suggestions on coding styles and beauty will be friendly ignored, ok?
+specific purpose. Suggestions on coding styles and beauty will be friendly ignored, ok?
 
