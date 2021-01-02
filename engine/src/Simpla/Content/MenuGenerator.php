@@ -66,6 +66,7 @@ class MenuGenerator implements ContentGeneratorInterface
     {
       return implode('', [
         $this->siteConfig->base_url,
+        '/',
         $menuItem->internal,
         '.',
         ($menuItem->type === 'feed') ?  $this->appConfig->file_extension_feed :  $this->appConfig->file_extension_content
