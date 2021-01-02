@@ -57,13 +57,18 @@ class MenuGenerator implements ContentGeneratorInterface
 
     private function buildMenuLink(object $menuItem): string
     {
-      $href = $menuItem->external ?? $menuItem->internal . '.' . $this->handleFileExtension($menuItem->type);
+      $href = $menuItem->external ?? $this->handleInternalLink($menuItem);
       $label = $menuItem->label;
       return "<a href=\"$href\">$label</a>";
     }
 
-    private function handleFileExtension($type = ''): string
+    private function handleInternalLink(object $menuItem): string
     {
-      return ($type === 'feed') ?  $this->appConfig->file_extension_feed :  $this->appConfig->file_extension_content;
+      return implode('', [
+        $this->siteConfig->base_url,
+        $menuItem->internal,
+        '.',
+        ($menuItem->type === 'feed') ?  $this->appConfig->file_extension_feed :  $this->appConfig->file_extension_content
+      ]);
     }
 }
