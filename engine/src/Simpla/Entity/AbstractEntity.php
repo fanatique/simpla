@@ -48,7 +48,8 @@ abstract class AbstractEntity implements EntityInterface
 
     public function getSlug(string $baseURL = ''): string
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->data['title']), '-'));
+        $contentSlug = $this->data['slug'] ?? $this->data['title'];
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $contentSlug), '-'));
 
         return $baseURL . '/' . $slug;
     }

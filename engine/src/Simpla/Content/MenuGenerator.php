@@ -21,53 +21,49 @@ class MenuGenerator implements ContentGeneratorInterface
     protected $siteConfig;
     protected $appConfig;
 
-    public function __construct(array $templates, object $siteConfig, object $appConfig)
+    public function __construct(object $templates, object $siteConfig, object $appConfig)
     {
         $this->templates = $templates;
         $this->siteConfig = $siteConfig;
         $this->appConfig = $appConfig;
     }
 
-    private function extractEntities(ContentIterator $contentItems): array
+    public function generate(object $menus): array
     {
-        $entities = [];
-        foreach ($contentItems as $content) {
-            /** @var Simpla\Entity\EntityInterface $content  */
-            $entities[] = $content->getEntity();
-        }
-
-        return $entities;
-    }
-
-    public function generate(ContentIterator $contentItems): array
-    {
-        $entities = $this->extractEntities($contentItems);
         $generatedMenus = [];
-        foreach ($this->templates as $template) {
-            $menuName = $this->extractFilenameFromPath($template);
-            $generatedMenus[$menuName] = $this->renderMenu($template, $entities);
+        foreach ($menus as $menuName => $menuItems) {
+            $generatedMenus[$menuName] = $this->renderMenu($menuName, $menuItems);
         }
 
         return $generatedMenus;
     }
 
-    private function extractFilenameFromPath(string $templatePath): string
+    protected function renderMenu(string $menuName, array $menuItems): string
     {
-        $info = pathinfo($templatePath);
-        $fileName =  basename($templatePath, '.' . $info['extension']);
-
-        return $fileName;
-    }
-
-    protected function renderMenu(string $template, array $entities): string
-    {
+        $appConfig = $this->appConfig;
+        $instance = $this;
+        $buildMenuLink = function (object $menuItem) use($instance): string
+        {
+          return $instance->buildMenuLink($menuItem);
+        };
         ob_start();
         $siteConfig = $this->siteConfig;
-        $appConfig = $this->appConfig;
-        include $template;
+        include $appConfig->folders->views .  $appConfig->views->menus->{$menuName};
         $generatedEntity = ob_get_contents();
         ob_end_clean();
 
         return (string) $generatedEntity;
+    }
+
+    private function buildMenuLink(object $menuItem): string
+    {
+      $href = $menuItem->external ?? $menuItem->internal . '.' . $this->handleFileExtension($menuItem->type);
+      $label = $menuItem->label;
+      return "<a href=\"$href\">$label</a>";
+    }
+
+    private function handleFileExtension($type = ''): string
+    {
+      return ($type === 'feed') ?  $this->appConfig->file_extension_feed :  $this->appConfig->file_extension_content;
     }
 }

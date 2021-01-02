@@ -45,7 +45,7 @@ class FeedGenerator implements ContentGeneratorInterface
 
         foreach ($entities as $entity) {
             $description = $entity->get('description') ?? $entity->get('content');
-            
+
             $item = new Item();
             $item
                 ->title($entity->get('title'))

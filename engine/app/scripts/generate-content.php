@@ -24,17 +24,17 @@ $saveContentCallback = function ($content, $slug) use ($container) {
 };
 
 $posts = $container('contentIteratorFactory')->create(
-    $container('appConfig')->content->posts,
+    $container('appConfig')->folders->content . $container('appConfig')->content->posts,
     Simpla\Entity\Post::TYPE
 );
 
 $pages = $container('contentIteratorFactory')->create(
-    $container('appConfig')->content->pages,
+    $container('appConfig')->folders->content . $container('appConfig')->content->pages,
     Simpla\Entity\Page::TYPE
 );
 $tags = $posts->sortByEntityTags();
 
-$generatedMenus = $container('menuGenerator')->generate($pages);
+$generatedMenus = $container('menuGenerator')->generate($container('siteConfig')->menus);
 
 $generatedPosts = $container('postGenerator')->generate($posts, $generatedMenus);
 array_walk($generatedPosts, $saveContentCallback);

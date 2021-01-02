@@ -45,15 +45,15 @@ class TagIndexGenerator implements ContentGeneratorInterface
 
         // Make appconfig available to the template
         $appConfig = $this->appConfig;
-        
+
         // Render template (including immediately executes script!)
-        include $this->template;
-        
+        include $appConfig->folders->views . $this->template;
+
         // Write buffer into output array
         $generatedEntity = (string) ob_get_contents();
-        
+
         ob_end_clean();
-        
+
         return $generatedEntity;
     }
 }

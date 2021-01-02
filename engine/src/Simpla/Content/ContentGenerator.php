@@ -23,7 +23,7 @@ class ContentGenerator implements ContentGeneratorInterface
 
     public function __construct(string $defaultTemplate, object $siteConfig, object $appConfig)
     {
-        $this->defaultTemplate = $defaultTemplate;
+      $this->defaultTemplate = $defaultTemplate;
         $this->siteConfig = $siteConfig;
         $this->appConfig = $appConfig;
     }
@@ -35,7 +35,7 @@ class ContentGenerator implements ContentGeneratorInterface
             ob_start();
             /** @var ContentIterator $contentItem */
             $entity = $contentItem->getEntity();
-            
+
             if ($entity->get('status') !== 'published') {
                 continue;
             }
@@ -44,10 +44,12 @@ class ContentGenerator implements ContentGeneratorInterface
 
             // Make appconfig available to the template
             $appConfig = $this->appConfig;
-            
+
+            $template = $entity->get('template') ?? $this->defaultTemplate;
+
             // Render template (including immediately executes script!)
-            include $entity->get('template') ?? $this->defaultTemplate;
-            
+            include $appConfig->folders->views . $template;
+
             // Write buffer into output array
             $generatedEntities[$entity->getSlug()] = ob_get_contents();
             ob_end_clean();

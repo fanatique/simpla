@@ -20,7 +20,7 @@ Simpla supports:
 
 - Writing Blog Posts and Static Pages using Markdown.
 - It generates index pages for blog posts and tags.
-- It also generates an RSS Feed (because we ❤️ independent publications)!
+- It also generates an RSS Feed (because we ❤️  independent publications)!
 - Pages can be added to menus, which are declared in the templates. That
   allows to have a main menu and a footer menu.
 

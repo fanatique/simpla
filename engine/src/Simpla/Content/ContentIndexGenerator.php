@@ -38,20 +38,20 @@ class ContentIndexGenerator implements ContentGeneratorInterface
         ob_start();
         $siteConfig = $this->siteConfig;
         $slug = $this->slug;
-        
+
         $entities = $this->extractAndSortEntities($contentItems);
-        
+
         $displayExcerpt = true;
-        
+
         // Make siteconfig available to the template
         $siteConfig = $this->siteConfig;
 
         // Make appconfig available to the template
         $appConfig = $this->appConfig;
-        
+
         // Render template (including immediately executes script!)
-        include $this->template;
-        
+        include $appConfig->folders->views . $this->template;
+
         // Write buffer into output array
         $generatedEntity = ob_get_contents();
         ob_end_clean();

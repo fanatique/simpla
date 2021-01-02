@@ -13,10 +13,11 @@
     "post_index": "index.phtml",
     "page": "page.phtml",
     "tag": "tag.phtml",
-    "menu": [
-      "menus/main.phtml",
-      "menus/footer.phtml"
-    ]
+    "menus": {
+      "main": "menus/main.phtml",
+      "footer": "menus/footer.phtml",
+      "social": "menus/social.phtml"
+    }
   },
   "content": {
     "posts": "posts",

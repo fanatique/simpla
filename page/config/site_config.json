@@ -10,7 +10,22 @@
     "post_index": "blog",
     "feed": "feed"
   },
-  "static_homepage": true,
+  "menus": {
+    "main": [
+      {"internal": "home", "label": "Home"},
+      {"internal": "blog", "label": "Blog"},
+      {"internal": "about", "label": "About", "type": "content"}
+    ],
+    "social": [
+      {"external": "https://twitter.com/fanatique", "label": "Twitter"},
+      {"external": "https://github.com/fanatique", "label": "Github"},
+      {"internal": "feed", "label": "Feed", "type": "feed"}
+    ],
+    "footer": [
+      {"internal": "imprint", "label": "Imprint", "type": "content"},
+      {"internal": "privacy-policy", "label": "Privacy Policy", "type": "content"}
+    ]
+  },
   "twitter_handle": "@fanatique",
   "github_handle": "@fanatique"
 }

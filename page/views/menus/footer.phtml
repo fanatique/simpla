@@ -1,9 +1,4 @@
-<?php
-foreach ($entities as $entity) :
-  if ($entity->get('menu') === 'footer' && $entity->get('status') === 'published') :
-    ?>
-    &middot; <a href="<?= $entity->getSlug($siteConfig->base_url) ?>.<?= $appConfig->file_extension_content ?>"><?= $entity->get('title') ?></a>
-<?php
-  endif;
-endforeach;
-?>
+<?php foreach ($menuItems as $menuItem) : ?>
+   &middot; <?=$buildMenuLink($menuItem) ?>
+  <?php endforeach; ?>
+</ul>
