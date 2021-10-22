@@ -1,4 +1,4 @@
-FROM php:7.4-cli
+FROM php:8.1-rc-cli
 
 # Prepare Runtime (libonig-dev provides mbstring!!)
 RUN apt-get update && apt-get install -y \
@@ -10,7 +10,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-source delete
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --1 --install-dir=/usr/local/bin --filename=composer
+# Copy default page
+COPY install-composer.sh /install-composer.sh
+
+RUN /bin/sh /install-composer.sh
 
 # Copy basic app
 COPY engine/ /usr/src/simpla
