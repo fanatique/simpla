@@ -11,20 +11,20 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/vendor/autoload.php';
-$container = require_once __DIR__ . '/app/bootstrap.php';
-
+require_once __DIR__ . '/../vendor/autoload.php';
+$container = require_once __DIR__ . '/../app/bootstrap.php';
+$container('appConfig')->folders->views = '../' . $container('appConfig')->folders->views;
 
 $contentType = $_GET['type'] ?? 'page';
 
 $posts = $container('contentIteratorFactory')->create(
-    $container('appConfig')->folders->content . $container('appConfig')->content->posts,
+    '../' . $container('appConfig')->folders->content . $container('appConfig')->content->posts,
     Simpla\Entity\Post::TYPE
 );
 
 
 $pages = $container('contentIteratorFactory')->create(
-    $container('appConfig')->folders->content . $container('appConfig')->content->pages,
+    '../' . $container('appConfig')->folders->content . $container('appConfig')->content->pages,
     Simpla\Entity\Page::TYPE
 );
 

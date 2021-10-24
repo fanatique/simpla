@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <?php include __DIR__ . '/partials/head-index.phtml' ?>
+</head>
+
+<body>
+  <?php include __DIR__ . '/partials/header.phtml' ?>
+
+  <div class="content">
+    <?php
+    foreach ($entities as $entity) :
+      include __DIR__ . '/partials/article.phtml';
+    endforeach;
+    ?>
+  </div>
+
+  <?php include __DIR__ . '/partials/footer.phtml' ?>
+
+</body>
+
+</html>
