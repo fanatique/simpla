@@ -1,5 +1,5 @@
 ---
-title: 'A Blog Post'
+title: 'A Blog Post DRAFT'
 status: 'draft'
 created_at: '2020-10-21'
 tags: static-websites, blogging, other, stuff
