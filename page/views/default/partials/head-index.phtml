@@ -1,22 +1,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title><?= $siteConfig->title ?> – <?= $siteConfig->tagline; ?></title>
-<meta name="description" content="<?= $siteConfig->desciption; ?>">
+<title><?= $config->title ?> – <?= $config->tagline; ?></title>
+<meta name="description" content="<?= $config->desciption; ?>">
 
-<link rel="canonical" href="<?= $siteConfig->base_url . '/' . $slug ?>.<?= $appConfig->file_extension_content; ?>" />
+<link rel="canonical" href="<?= $config->base_url . '/' . $slug ?>.<?= $config->file_extension_content; ?>" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
-<link rel="stylesheet" href="<?= $siteConfig->base_url ?>/css/new.theme.simpla.css">
-<script src="<?= $siteConfig->base_url ?>/js/main.js" defer></script>
+<link rel="stylesheet" href="<?= $config->base_url ?>/css/new.theme.simpla.css">
+<script src="<?= $config->base_url ?>/js/main.js" defer></script>
 
 <meta property="og:type" content="article" />
-<meta property="og:title" content="<?= $siteConfig->title ?> – <?= $siteConfig->tagline; ?>" />
+<meta property="og:title" content="<?= $config->title ?> – <?= $config->tagline; ?>" />
 <meta property="og:description" content="" />
 <meta property="og:url" content="" />
 
-<meta property="og:site_name" content="<?= $siteConfig->title ?>" />
-<meta name="twitter:title" content="<?= $siteConfig->title ?> – <?= $siteConfig->tagline; ?>">
-<meta name="twitter:description" content="<?= $siteConfig->desciption; ?>">
+<meta property="og:site_name" content="<?= $config->title ?>" />
+<meta name="twitter:title" content="<?= $config->title ?> – <?= $config->tagline; ?>">
+<meta name="twitter:description" content="<?= $config->desciption; ?>">
 
-<meta name="twitter:site" content="<?= $siteConfig->twitter_handle ?>">
-<meta name="twitter:creator" content="<?= $siteConfig->twitter_handle ?>">
+<meta name="twitter:site" content="<?= $config->twitter_handle ?>">
+<meta name="twitter:creator" content="<?= $config->twitter_handle ?>">
+

@@ -19,14 +19,12 @@ use Simpla\Entity\EntityInterface;
 class ContentGenerator implements ContentGeneratorInterface
 {
     protected $defaultTemplate;
-    protected $siteConfig;
-    protected $appConfig;
+    protected $config;
 
-    public function __construct(string $defaultTemplate, object $siteConfig, object $appConfig)
+    public function __construct(string $defaultTemplate, object $config)
     {
       $this->defaultTemplate = $defaultTemplate;
-        $this->siteConfig = $siteConfig;
-        $this->appConfig = $appConfig;
+      $this->config = $config;
     }
 
     public function generate(ContentIterator $contentItems, array $generatedMenus = []): array
@@ -51,16 +49,13 @@ class ContentGenerator implements ContentGeneratorInterface
     {
         ob_start();
 
-        // Make siteconfig available to the template
-        $siteConfig = $this->siteConfig;
-
-        // Make appconfig available to the template
-        $appConfig = $this->appConfig;
+        // Make config available to the template
+        $config = $this->config;
 
         $template = $entity->get('template') ?? $this->defaultTemplate;
 
         // Render template (including immediately executes script!)
-        include $appConfig->folders->views . $template;
+        include $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $template;
 
         // Write buffer into output array
         $generatedContent = ob_get_contents();

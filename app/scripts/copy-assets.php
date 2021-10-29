@@ -12,9 +12,9 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-$container = require_once __DIR__ . '/../bootstrap.php';
+$container = require_once __DIR__ . '/../bootstrap_container.php';
 
 $container('assetHandler')->copyRecursively(
-    $container('appConfig')->folders->assets,
-    $container('appConfig')->folders->dist
+    $container('config')->folders->assets,
+    $container('config')->folders->dist
 );

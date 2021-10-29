@@ -24,13 +24,10 @@ use Pagerange\Markdown\MetaParsedown;
 
 $container = new Container();
 
-// Prepare Application Config
-$appConfigJson = file_get_contents(__DIR__ . '/config/app_config.json');
-$container->appConfig = json_decode($appConfigJson);
-
-// Prepare Site Config
-$siteConfigJson = file_get_contents(__DIR__ . '/../page/config/site_config.json');
-$container->siteConfig = json_decode($siteConfigJson);
+// Prepare Config
+//$configJson = file_get_contents(__DIR__ . '/../page/config/config.json');
+//$container->config = json_decode($configJson);
+$container->config = require __DIR__ . '/../page/config/config.php';
 
 // Register Handlers, Factories and Generators in the Container
 
@@ -49,54 +46,48 @@ $container->contentIteratorFactory = function () use ($container): ContentIterat
 
 $container->menuGenerator = function () use ($container): MenuGenerator {
     return new MenuGenerator(
-        $container('appConfig')->views->menus,
-        $container('siteConfig'),
-        $container('appConfig')
+        $container('config')->views->menus,
+        $container('config')
     );
 };
 
 $container->postGenerator = function () use ($container): ContentGenerator {
     $postGenerator = new ContentGenerator(
-        $container('appConfig')->views->post,
-        $container('siteConfig'),
-        $container('appConfig')
+        $container('config')->views->post,
+        $container('config')
     );
     return $postGenerator;
 };
 
 $container->pageGenerator = function () use ($container): ContentGenerator {
     $pageGenerator = new ContentGenerator(
-        $container('appConfig')->views->page,
-        $container('siteConfig'),
-        $container('appConfig')
+        $container('config')->views->page,
+        $container('config')
     );
     return $pageGenerator;
 };
 
 $container->postIndexGenerator = function () use ($container): ContentIndexGenerator {
     $postIndexGenerator = new ContentIndexGenerator(
-        $container('appConfig')->views->post_index,
-        $container('siteConfig')->slugs->post_index,
-        $container('siteConfig'),
-        $container('appConfig')
+        $container('config')->views->post_index,
+        $container('config')->slugs->post_index,
+        $container('config')
     );
     return $postIndexGenerator;
 };
 
 $container->tagIndexGenerator = function (array $generatedMenus = []) use ($container): TagIndexGenerator {
     $tagIndexGenerator = new TagIndexGenerator(
-        $container('appConfig')->views->tag,
-        $container('siteConfig'),
-        $container('appConfig')
+        $container('config')->views->tag,
+        $container('config')
     );
     return $tagIndexGenerator;
 };
 
 $container->feedGenerator = function () use ($container): FeedGenerator {
     $feedGenerator = new FeedGenerator(
-        $container('siteConfig')->slugs->feed,
-        $container('siteConfig'),
-        $container('appConfig')
+        $container('config')->slugs->feed,
+        $container('config')
     );
     return $feedGenerator;
 };

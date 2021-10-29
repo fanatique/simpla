@@ -1,4 +1,5 @@
 {
+  "theme": "default",
   "base_url": "",
   "tag_path": "tags",
   "title": "A Demo Page",
@@ -27,5 +28,32 @@
     ]
   },
   "twitter_handle": "@fanatique",
-  "github_handle": "@fanatique"
+  "github_handle": "@fanatique",
+  "folders": {
+    "assets": "./page/views/assets",
+    "dist": "/dist",
+    "dist_tags": "/dist/tags",
+    "content_images": "./page/content/img",
+    "dist_content_images": "/dist/img",
+    "views": "./page/views/",
+    "content": "./page/content/"
+  },
+  "views": {
+    "post": "post.phtml",
+    "post_index": "index.phtml",
+    "page": "page.phtml",
+    "tag": "tag.phtml",
+    "menus": {
+      "main": "menus/main.phtml",
+      "footer": "menus/footer.phtml",
+      "social": "menus/social.phtml"
+    }
+  },
+  "content": {
+    "posts": "posts",
+    "pages": "pages"
+  },
+  "file_extension_content": "html",
+  "file_extension_feed": "xml"
+  }
 }

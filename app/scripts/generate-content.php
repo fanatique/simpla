@@ -12,29 +12,29 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-$container = require_once __DIR__ . '/../bootstrap.php';
+$container = require_once __DIR__ . '/../bootstrap_container.php';
 
 $saveContentCallback = function ($content, $slug) use ($container) {
     $container('assetHandler')->persistContent(
         $content,
-        $container('appConfig')->folders->dist,
+        $container('config')->folders->dist,
         $slug,
-        $container('appConfig')->file_extension_content
+        $container('config')->file_extension_content
     );
 };
 
 $posts = $container('contentIteratorFactory')->create(
-    $container('appConfig')->folders->content . $container('appConfig')->content->posts,
+    $container('config')->folders->content . $container('config')->content->posts,
     Simpla\Entity\Post::TYPE
 );
 
 $pages = $container('contentIteratorFactory')->create(
-    $container('appConfig')->folders->content . $container('appConfig')->content->pages,
+    $container('config')->folders->content . $container('config')->content->pages,
     Simpla\Entity\Page::TYPE
 );
 $tags = $posts->sortByEntityTags();
 
-$generatedMenus = $container('menuGenerator')->generate($container('siteConfig')->menus);
+$generatedMenus = $container('menuGenerator')->generate($container('config')->menus);
 
 $generatedPosts = $container('postGenerator')->generate($posts, $generatedMenus);
 array_walk($generatedPosts, $saveContentCallback);
@@ -49,9 +49,9 @@ $generatedTags = $container('tagIndexGenerator')->generate($tags, $generatedMenu
 array_walk($generatedTags, function ($content, $slug) use ($container) {
     $container('assetHandler')->persistContent(
         $content,
-        $container('appConfig')->folders->dist_tags,
+        $container('config')->folders->dist_tags,
         $slug,
-        $container('appConfig')->file_extension_content
+        $container('config')->file_extension_content
     );
 });
 
@@ -59,8 +59,8 @@ $generatedFeed = $container('feedGenerator')->generate($posts);
 array_walk($generatedFeed, function ($content, $slug) use ($container) {
     $container('assetHandler')->persistContent(
         $content,
-        $container('appConfig')->folders->dist,
+        $container('config')->folders->dist,
         $slug,
-        $container('appConfig')->file_extension_feed
+        $container('config')->file_extension_feed
     );
 });

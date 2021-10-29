@@ -18,14 +18,12 @@ use Simpla\Content\ContentIterator;
 class MenuGenerator implements ContentGeneratorInterface
 {
     protected $templates;
-    protected $siteConfig;
-    protected $appConfig;
+    protected $sconfig;
 
-    public function __construct(object $templates, object $siteConfig, object $appConfig)
+    public function __construct(object $templates, object $config)
     {
         $this->templates = $templates;
-        $this->siteConfig = $siteConfig;
-        $this->appConfig = $appConfig;
+        $this->config = $config;
     }
 
     public function generate(object $menus): array
@@ -40,16 +38,19 @@ class MenuGenerator implements ContentGeneratorInterface
 
     protected function renderMenu(string $menuName, array $menuItems): string
     {
-        $appConfig = $this->appConfig;
+        $config = $this->config;
         $instance = $this;
         $buildMenuLink = function (object $menuItem) use($instance): string
         {
           return $instance->buildMenuLink($menuItem);
         };
+
         ob_start();
-        $siteConfig = $this->siteConfig;
-        include $appConfig->folders->views .  $appConfig->views->menus->{$menuName};
+
+        include $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $config->views->menus->{$menuName};
+
         $generatedEntity = ob_get_contents();
+
         ob_end_clean();
 
         return (string) $generatedEntity;
@@ -65,11 +66,11 @@ class MenuGenerator implements ContentGeneratorInterface
     private function handleInternalLink(object $menuItem): string
     {
       return implode('', [
-        $this->siteConfig->base_url,
+        $this->config->base_url,
         '/',
         $menuItem->internal,
         '.',
-        ($menuItem->type === 'feed') ?  $this->appConfig->file_extension_feed :  $this->appConfig->file_extension_content
+        (isset($menuItem->type) && $menuItem->type === 'feed') ?  $this->config->file_extension_feed :  $this->config->file_extension_content
       ]);
     }
 }

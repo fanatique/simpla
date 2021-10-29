@@ -24,15 +24,13 @@ class FeedGenerator implements ContentGeneratorInterface
 
     protected $feed;
     protected $template;
-    protected $siteConfig;
-    protected $appConfig;
+    protected $config;
     protected $slug;
 
-    public function __construct(string $slug, object $siteConfig, object $appConfig)
+    public function __construct(string $slug, object $config)
     {
         $this->slug = $slug;
-        $this->siteConfig = $siteConfig;
-        $this->appConfig = $appConfig;
+        $this->config = $config;
 
         $this->feed = new Feed();
         $this->channel = $this->setupChannel();
@@ -51,10 +49,10 @@ class FeedGenerator implements ContentGeneratorInterface
                 ->title($entity->get('title'))
                 ->description($description)
                 ->contentEncoded($entity->get('content'))
-                ->url($entity->getSlug($this->siteConfig->base_url))
-                ->author($entity->get('author') ?? $this->siteConfig->author)
+                ->url($entity->getSlug($this->config->base_url))
+                ->author($entity->get('author') ?? $this->config->author)
                 ->pubDate($entity->get('created_at')->getTimestamp())
-                ->guid($entity->getSlug($this->siteConfig->base_url), true)
+                ->guid($entity->getSlug($this->config->base_url), true)
                 ->preferCdata(true) // By this, title and description become CDATA wrapped HTML.
                 ->appendTo($this->channel);
         }
@@ -66,12 +64,12 @@ class FeedGenerator implements ContentGeneratorInterface
     {
         $channel = new Channel();
         $channel
-            ->title($this->siteConfig->title)
-            ->description($this->siteConfig->description)
-            ->url($this->siteConfig->base_url)
-            ->feedUrl($this->siteConfig->base_url . '/' . $this->slug . '.' . $this->appConfig->file_extension_feed)
-            ->language($this->siteConfig->language)
-            ->copyright('Copyright ' . date('Y') . ', ' . $this->siteConfig->author)
+            ->title($this->config->title)
+            ->description($this->config->description)
+            ->url($this->config->base_url)
+            ->feedUrl($this->config->base_url . '/' . $this->slug . '.' . $this->config->file_extension_feed)
+            ->language($this->config->language)
+            ->copyright('Copyright ' . date('Y') . ', ' . $this->config->author)
             ->pubDate(strtotime('now'))
             ->lastBuildDate(strtotime('now'))
             ->ttl(180);

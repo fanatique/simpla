@@ -12,24 +12,25 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
-$container = require_once __DIR__ . '/../app/bootstrap.php';
-$container('appConfig')->folders->views = '../' . $container('appConfig')->folders->views;
+$container = require_once __DIR__ . '/../app/bootstrap_container.php';
+
+//$container('config')->folders->views = '../' . $container('config')->folders->views;
 
 $contentType = $_GET['type'] ?? 'page';
 
 $posts = $container('contentIteratorFactory')->create(
-    '../' . $container('appConfig')->folders->content . $container('appConfig')->content->posts,
+    $container('config')->folders->content . $container('config')->content->posts,
     Simpla\Entity\Post::TYPE
 );
 
 
 $pages = $container('contentIteratorFactory')->create(
-    '../' . $container('appConfig')->folders->content . $container('appConfig')->content->pages,
+    $container('config')->folders->content . $container('config')->content->pages,
     Simpla\Entity\Page::TYPE
 );
 
 
-$generatedMenus = $container('menuGenerator')->generate($container('siteConfig')->menus);
+$generatedMenus = $container('menuGenerator')->generate($container('config')->menus);
 
 switch($contentType) {
   case 'page':

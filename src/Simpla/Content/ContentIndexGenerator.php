@@ -21,15 +21,13 @@ class ContentIndexGenerator implements ContentGeneratorInterface
     use ExtractAndSortEntitiesTrait;
 
     protected $template;
-    protected $siteConfig;
-    protected $appConfig;
+    protected $config;
     protected $slug;
 
-    public function __construct(string $template, string $slug, object $siteConfig, object $appConfig)
+    public function __construct(string $template, string $slug, object $config)
     {
         $this->template = $template;
-        $this->siteConfig = $siteConfig;
-        $this->appConfig = $appConfig;
+        $this->config = $config;
         $this->slug = $slug;
     }
 
@@ -42,20 +40,14 @@ class ContentIndexGenerator implements ContentGeneratorInterface
     {
       ob_start();
 
-      $siteConfig = $this->siteConfig;
+      $config = $this->config;
       $slug = $this->slug;
 
       $entities = $this->extractAndSortEntities($contentItems);
       $displayExcerpt = true;
 
-      // Make siteconfig available to the template
-      $siteConfig = $this->siteConfig;
-
-      // Make appconfig available to the template
-      $appConfig = $this->appConfig;
-
       // Render template (including immediately executes script!)
-      include $appConfig->folders->views . $this->template;
+      include $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $this->template;
 
       // Write buffer into output variable
       $generatedContent = ob_get_contents();

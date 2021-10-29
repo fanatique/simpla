@@ -12,10 +12,10 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-$container = require_once __DIR__ . '/../bootstrap.php';
+$container = require_once __DIR__ . '/../bootstrap_container.php';
 
 $container('assetHandler')->removeAndCreateFolders([
-    $container('appConfig')->folders->dist,
-    $container('appConfig')->folders->dist_tags,
-    $container('appConfig')->folders->dist_content_images,
+    $container('config')->folders->dist,
+    $container('config')->folders->dist_tags,
+    $container('config')->folders->dist_content_images,
 ]);

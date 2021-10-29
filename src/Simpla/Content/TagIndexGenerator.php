@@ -16,15 +16,13 @@ namespace Simpla\Content;
 class TagIndexGenerator implements ContentGeneratorInterface
 {
     protected $template;
-    protected $siteConfig;
-    protected $appConfig;
+    protected $config;
     protected $generatedMenus = [];
 
-    public function __construct(string $template, object $siteConfig, object $appConfig)
+    public function __construct(string $template, object $config)
     {
         $this->template = $template;
-        $this->siteConfig = $siteConfig;
-        $this->appConfig = $appConfig;
+        $this->config = $config;
     }
 
     public function generate(array $tags, array $generatedMenus = []): array
@@ -40,14 +38,11 @@ class TagIndexGenerator implements ContentGeneratorInterface
     public function generateTagIndex(array $entities, array $generatedMenus = []): string
     {
         ob_start();
-        // Make siteconfig available to the template
-        $siteConfig = $this->siteConfig;
-
-        // Make appconfig available to the template
-        $appConfig = $this->appConfig;
+        // Make config available to the template
+        $config = $this->config;
 
         // Render template (including immediately executes script!)
-        include $appConfig->folders->views . $this->template;
+        include $config->folders->views . $this->config->theme . \DIRECTORY_SEPARATOR . $this->template;
 
         // Write buffer into output array
         $generatedEntity = (string) ob_get_contents();
