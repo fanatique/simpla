@@ -15,7 +15,7 @@ return json_decode(json_encode([
   ],
   "menus" => [
     "main" => [
-      ["internal" => "home", "label" => "Home"],
+      ["internal" => "index", "label" => "Home"],
       ["internal" => "blog", "label" => "Blog"],
       ["internal" => "about", "label" => "About", "type" => "content"],
     ],
@@ -32,10 +32,10 @@ return json_decode(json_encode([
   "twitter_handle" => "@fanatique",
   "github_handle" => "@fanatique",
   "folders" => [
-    "assets" => __DIR__ . "/../views/assets",
-    "dist" => __DIR__ . "/../../dist",
-    "dist_tags" => __DIR__ . "/../../dist/tags",
-    "content_images" => __DIR__ . "/../content/img",
+    "assets" => "assets",
+    "dist" => __DIR__ . "/../../../dist",
+    "dist_tags" => __DIR__ . "/../../../dist/tags",
+    "content_images" => __DIR__ . "/../../page/content/img",
     "dist_content_images" => __DIR__ . "/../../dist/img",
     "views" => __DIR__ . "/../views/",
     "content" => __DIR__ . "/../content/",

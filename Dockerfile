@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php -- --1 --install-dir=/usr/local/bin --filename=composer
 
 # Copy basic app
-COPY engine/ /usr/src/simpla
+COPY engine /usr/src/simpla
 
 # Copy default page
 COPY page /usr/src/simpla/page

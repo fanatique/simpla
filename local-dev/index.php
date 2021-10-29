@@ -11,10 +11,8 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
-$container = require_once __DIR__ . '/../app/bootstrap_container.php';
-
-//$container('config')->folders->views = '../' . $container('config')->folders->views;
+require_once __DIR__ . '/../engine/vendor/autoload.php';
+$container = require_once __DIR__ . '/../engine/app/bootstrap_container.php';
 
 $contentType = $_GET['type'] ?? 'page';
 
@@ -44,7 +42,7 @@ switch($contentType) {
   case 'tagIndex':
     $tags = $posts->sortByEntityTags();
     $tag = current($tags);
-    $output = $container('tagIndexGenerator')->generateTagIndex($tag, $generatedMenus);
+    $output = $container('tagIndexGenerator')->generateTagIndex('tagName', $tag, $generatedMenus);
     break;
   case 'postIndex':
     $output = $container('postIndexGenerator')->generateOne($posts, $generatedMenus);
