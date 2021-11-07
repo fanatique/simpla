@@ -2,18 +2,18 @@
     <header class="article__header">
         <hgroup>
             <h4 class="article__date"><time pubdate date="<?= $entity->get('created_at')->format('Y-m-d') ?>"><em><?= $entity->get('created_at')->format('Y-m-d') ?></em></time></h4>
-            <a href="<?= $entity->getSlug($siteConfig->base_url) ?>.html" class="article__permalink" rel="permalink" title="<?= $entity->get('title') ?>">
+            <a href="<?= $entity->getSlug($config->base_url) ?>.html" class="article__permalink" rel="permalink" title="<?= $entity->get('title') ?>">
                 <h1 class="article__title"><?= $entity->get('title') ?></h1>
             </a>
         </hgroup>
     </header>
     <?php if (!is_null($entity->get('image'))) : ?>
-        <img src="<?= $siteConfig->base_url ?>/img/<?= $entity->get('image') ?>" class="article__title-image" width="100%" height="200" alt="<?= $entity->get('title') ?>" title="<?= $entity->get('title') ?>" loading="lazy">
+        <img src="<?= $config->base_url ?>/img/<?= $entity->get('image') ?>" class="article__title-image" width="100%" height="200" alt="<?= $entity->get('title') ?>" title="<?= $entity->get('title') ?>" loading="lazy">
     <?php endif; ?>
 
     <?= $entity->get('content') ?>
 
     <footer class="article__footer">
-        <span class="nowrap">by <?php !is_null($entity->get('author')) ? print $entity->get('author') : print $siteConfig->author ?></span>
+        <span class="nowrap">by <?php !is_null($entity->get('author')) ? print $entity->get('author') : print $config->author ?></span>
     </footer>
 </article>

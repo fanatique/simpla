@@ -1,7 +1,7 @@
 <?php
 
 return json_decode(json_encode([
-  "theme" => "default",
+  "theme" => "monotai.com",
   "base_url" => "",
   "tag_path" => "tags",
   "title" => "A Demo Page",

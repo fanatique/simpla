@@ -11,8 +11,8 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../engine/vendor/autoload.php';
-$container = require_once __DIR__ . '/../engine/app/bootstrap_container.php';
+//require_once __DIR__ . '/../engine/vendor/autoload.php';
+//$container = require_once __DIR__ . '/../engine/app/bootstrap_container.php';
 
 $contentType = $_GET['type'] ?? 'page';
 
