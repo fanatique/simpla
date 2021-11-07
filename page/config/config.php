@@ -33,8 +33,8 @@ return json_decode(json_encode([
   "github_handle" => "@fanatique",
   "folders" => [
     "assets" => "assets",
-    "dist" => __DIR__ . "/../../../dist",
-    "dist_tags" => __DIR__ . "/../../../dist/tags",
+    "dist" => __DIR__ . "/../../dist",
+    "dist_tags" => __DIR__ . "/../../dist/tags",
     "content_images" => __DIR__ . "/../../page/content/img",
     "dist_content_images" => __DIR__ . "/../../dist/img",
     "views" => __DIR__ . "/../views/",

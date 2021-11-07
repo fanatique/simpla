@@ -1,4 +1,4 @@
-FROM php:7.4-cli
+FROM php:8.0-cli
 
 # Prepare Runtime (libonig-dev provides mbstring!!)
 RUN apt-get update && apt-get install -y \
@@ -13,12 +13,15 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php -- --1 --install-dir=/usr/local/bin --filename=composer
 
 # Copy basic app
-COPY engine /usr/src/simpla
+COPY engine /usr/src/simpla/engine
 
 # Copy default page
 COPY page /usr/src/simpla/page
 
-WORKDIR /usr/src/simpla
+# Copy basic app
+RUN mkdir /usr/src/simpla/dist
+
+WORKDIR /usr/src/simpla/engine
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
