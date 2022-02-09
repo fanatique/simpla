@@ -95,4 +95,16 @@ class ContentIterator extends \DirectoryIterator
     }
     return $result;
   }
+
+
+  public function findByFieldValue(string $field, string $value)
+  {
+    foreach ($this as $item) {
+      if($item->getEntity()->get($field) === $value && $item->getEntity()->get('status') === 'published') {
+        return $item->getEntity();
+        }
+      }
+      
+      return null;
+   }
 }

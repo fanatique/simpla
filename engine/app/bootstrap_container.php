@@ -14,6 +14,7 @@ declare(strict_types=1);
 use Simpla\Container\Container;
 use Simpla\Entity\EntityFactory;
 use Simpla\Content\ContentIteratorFactory;
+use Simpla\Content\ContentIterator;
 use Simpla\Content\ContentGenerator;
 use Simpla\Content\ContentIndexGenerator;
 use Simpla\Content\TagIndexGenerator;
@@ -21,6 +22,7 @@ use Simpla\Content\MenuGenerator;
 use Simpla\Content\FeedGenerator;
 use Simpla\Asset\AssetHandler;
 use Pagerange\Markdown\MetaParsedown;
+use Simpla\Entity\Snippet;
 
 $container = new Container();
 
@@ -51,6 +53,15 @@ $container->menuGenerator = function () use ($container): MenuGenerator {
     );
 };
 
+$container->snippetStore = function () use ($container): ContentIterator {
+    return new ContentIterator(
+      $container('config')->folders->content . $container('config')->content->snippets,
+      Snippet::TYPE,
+      $container('entityFactory')
+  );
+};
+
+
 $container->postGenerator = function () use ($container): ContentGenerator {
     $postGenerator = new ContentGenerator(
         $container('config')->views->post,
@@ -79,7 +90,8 @@ $container->postIndexGenerator = function () use ($container): ContentIndexGener
 $container->tagIndexGenerator = function (array $generatedMenus = []) use ($container): TagIndexGenerator {
     $tagIndexGenerator = new TagIndexGenerator(
         $container('config')->views->tag,
-        $container('config')
+        $container('config'),
+        $container('snippetStore')
     );
     return $tagIndexGenerator;
 };

@@ -7,6 +7,9 @@
 
 <body>
   <?php include 'partials/header.phtml' ?>
+  
+  <h1><?=ucfirst($config->tag_path) ?>: <?=implode('-', array_map('ucfirst', explode('-', $slug))); ?></h1>
+  <?php if($snippet !== null) print $snippet->get('content') ?>
 
   <?php
     foreach ($entities as $entity) :

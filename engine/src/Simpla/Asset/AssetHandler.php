@@ -83,15 +83,21 @@ class AssetHandler
             if (is_dir($folder)) {
                 $this->deleteTree($folder);
             }
-
-            if (!is_dir($folder)) {
-                mkdir($folder);
-            }
+            
+            $this->createDirectoryRecursively($folder);
         }
+    }
+    
+    private function createDirectoryRecursively(string $folder): void
+    {
+      if (!is_dir($folder)) {
+          mkdir($folder, 0777, true);
+      }
     }
 
     public function persistContent(string $content, string $targetDir, string $slug, string $fileExtension): void
     {
+        $this->createDirectoryRecursively($targetDir);
         $filename = $targetDir . '/' . $slug . '.' . $fileExtension;
         file_put_contents($filename, $content);
     }

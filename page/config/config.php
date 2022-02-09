@@ -1,7 +1,7 @@
 <?php
 
 return json_decode(json_encode([
-  "theme" => "monotai.com",
+  "theme" => "default",
   "base_url" => "",
   "tag_path" => "tags",
   "title" => "A Demo Page",
@@ -48,12 +48,13 @@ return json_decode(json_encode([
     "menus" => [
       "main" => "menus/main.phtml",
       "footer" => "menus/footer.phtml",
-      "social" => "menus/social.phtml"
+      "social" => "menus/social.phtml",
     ]
   ],
   "content" => [
     "posts" => "posts",
-    "pages" => "pages"
+    "pages" => "pages",
+    "snippets" => "snippets",
   ],
   "file_extension_content" => "html",
   "file_extension_feed" => "xml",

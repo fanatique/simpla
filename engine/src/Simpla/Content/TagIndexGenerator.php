@@ -17,12 +17,14 @@ class TagIndexGenerator implements ContentGeneratorInterface
 {
     protected $template;
     protected $config;
+    protected $snippetStore;
     protected $generatedMenus = [];
 
-    public function __construct(string $template, object $config)
+    public function __construct(string $template, object $config, ContentIterator $snippetStore)
     {
         $this->template = $template;
         $this->config = $config;
+        $this->snippetStore = $snippetStore;
     }
 
     public function generate(array $tags, array $generatedMenus = []): array
@@ -41,6 +43,8 @@ class TagIndexGenerator implements ContentGeneratorInterface
         $config = $this->config;
 
         $slug = $tagName;
+        
+        $snippet = $this->snippetStore->findByFieldValue('title', $tagName);
 
         // Render template (including immediately executes script!)
         include $config->folders->views . $this->config->theme . \DIRECTORY_SEPARATOR . $this->template;
