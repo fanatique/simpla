@@ -40,9 +40,8 @@ class MenuGenerator implements ContentGeneratorInterface
     {
         $config = $this->config;
         $instance = $this;
-        $buildMenuLink = function (object $menuItem) use($instance): string
-        {
-          return $instance->buildMenuLink($menuItem);
+        $buildMenuLink = function (object $menuItem) use ($instance): string {
+            return $instance->buildMenuLink($menuItem);
         };
 
         ob_start();
@@ -58,14 +57,14 @@ class MenuGenerator implements ContentGeneratorInterface
 
     private function buildMenuLink(object $menuItem): string
     {
-      $href = $menuItem->external ?? $this->handleInternalLink($menuItem);
-      $label = $menuItem->label;
-      return "<a href=\"$href\">$label</a>";
+        $href = $menuItem->external ?? $this->handleInternalLink($menuItem);
+        $label = $menuItem->label;
+        return "<a href=\"$href\">$label</a>";
     }
 
     private function handleInternalLink(object $menuItem): string
     {
-      return implode('', [
+        return implode('', [
         $this->config->base_url,
         '/',
         $menuItem->internal,

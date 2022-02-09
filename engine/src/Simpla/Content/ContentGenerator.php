@@ -23,8 +23,8 @@ class ContentGenerator implements ContentGeneratorInterface
 
     public function __construct(string $defaultTemplate, object $config)
     {
-      $this->defaultTemplate = $defaultTemplate;
-      $this->config = $config;
+        $this->defaultTemplate = $defaultTemplate;
+        $this->config = $config;
     }
 
     public function generate(ContentIterator $contentItems, array $generatedMenus = []): array
@@ -33,14 +33,13 @@ class ContentGenerator implements ContentGeneratorInterface
         foreach ($contentItems as $contentItem) {
 
           /** @var ContentIterator $contentItem */
-          $entity = $contentItem->getEntity();
+            $entity = $contentItem->getEntity();
 
-          if ($entity->get('status') !== 'published') {
-            continue;
-          }
+            if ($entity->get('status') !== 'published') {
+                continue;
+            }
 
-          $generatedEntities[$entity->getSlug()] = $this->generateOne($entity, $generatedMenus);
-
+            $generatedEntities[$entity->getSlug()] = $this->generateOne($entity, $generatedMenus);
         }
         return $generatedEntities;
     }

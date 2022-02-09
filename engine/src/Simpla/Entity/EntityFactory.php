@@ -26,11 +26,11 @@ class EntityFactory
 
     public function createFromMarkdown(string $pathToFile, string $type): EntityInterface
     {
-      $fileContents = file_get_contents($pathToFile);
-      $entityData = $this->markdownParser->meta($fileContents);
-      $entityData['content'] = $this->markdownParser->text($fileContents);
+        $fileContents = file_get_contents($pathToFile);
+        $entityData = $this->markdownParser->meta($fileContents);
+        $entityData['content'] = $this->markdownParser->text($fileContents);
 
-      switch ($type) {
+        switch ($type) {
         case Post::TYPE:
           $entity = Post::createFromArray($entityData);
         break;

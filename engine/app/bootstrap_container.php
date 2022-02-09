@@ -55,10 +55,10 @@ $container->menuGenerator = function () use ($container): MenuGenerator {
 
 $container->snippetStore = function () use ($container): ContentIterator {
     return new ContentIterator(
-      $container('config')->folders->content . $container('config')->content->snippets,
-      Snippet::TYPE,
-      $container('entityFactory')
-  );
+        $container('config')->folders->content . $container('config')->content->snippets,
+        Snippet::TYPE,
+        $container('entityFactory')
+    );
 };
 
 

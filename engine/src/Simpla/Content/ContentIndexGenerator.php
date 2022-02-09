@@ -33,26 +33,26 @@ class ContentIndexGenerator implements ContentGeneratorInterface
 
     public function generate(ContentIterator $contentItems, array $generatedMenus = []): array
     {
-      return [$this->slug => $this->generateOne($contentItems, $generatedMenus)];
+        return [$this->slug => $this->generateOne($contentItems, $generatedMenus)];
     }
 
     public function generateOne(ContentIterator $contentItems, array $generatedMenus = []): string
     {
-      ob_start();
+        ob_start();
 
-      $config = $this->config;
-      $slug = $this->slug;
+        $config = $this->config;
+        $slug = $this->slug;
 
-      $entities = $this->extractAndSortEntities($contentItems);
-      $displayExcerpt = true;
+        $entities = $this->extractAndSortEntities($contentItems);
+        $displayExcerpt = true;
 
-      // Render template (including immediately executes script!)
-      include $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $this->template;
+        // Render template (including immediately executes script!)
+        include $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $this->template;
 
-      // Write buffer into output variable
-      $generatedContent = ob_get_contents();
-      ob_end_clean();
+        // Write buffer into output variable
+        $generatedContent = ob_get_contents();
+        ob_end_clean();
 
-      return $generatedContent;
+        return $generatedContent;
     }
 }

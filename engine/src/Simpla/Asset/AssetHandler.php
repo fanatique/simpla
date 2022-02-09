@@ -90,9 +90,9 @@ class AssetHandler
     
     private function createDirectoryRecursively(string $folder): void
     {
-      if (!is_dir($folder)) {
-          mkdir($folder, 0777, true);
-      }
+        if (!is_dir($folder)) {
+            mkdir($folder, 0777, true);
+        }
     }
 
     public function persistContent(string $content, string $targetDir, string $slug, string $fileExtension): void
