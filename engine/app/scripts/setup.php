@@ -14,8 +14,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/../../vendor/autoload.php';
 $container = require_once __DIR__ . '/../bootstrap_container.php';
 
-$container('assetHandler')->removeAndCreateFolders([
-    $container('config')->folders->dist,
-    $container('config')->folders->dist_tags,
-    $container('config')->folders->dist_content_images,
-]);
+$container('assetHandler')->deleteTree($container('config')->folders->dist);
+
+$container('assetHandler')->createDirectoryRecursively($container('config')->folders->dist);
+$container('assetHandler')->createDirectoryRecursively($container('config')->folders->dist_tags);
+$container('assetHandler')->createDirectoryRecursively($container('config')->folders->dist_content_images);

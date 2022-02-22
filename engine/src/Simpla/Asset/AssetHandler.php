@@ -47,7 +47,7 @@ class AssetHandler
     * @return bool TRUE on success, otherwise FALSE.
     * @see https://gist.github.com/mindplay-dk/a4aad91f5a4f1283a5e2
     */
-    private function deleteTree($folder, $keepRootFolder = true): bool
+    public function deleteTree($folder, $keepRootFolder = true): bool
     {
         // Handle bad arguments.
         if (empty($folder) || !file_exists($folder)) {
@@ -88,7 +88,7 @@ class AssetHandler
         }
     }
     
-    private function createDirectoryRecursively(string $folder): void
+    public function createDirectoryRecursively(string $folder): void
     {
         if (!is_dir($folder)) {
             mkdir($folder, 0777, true);
