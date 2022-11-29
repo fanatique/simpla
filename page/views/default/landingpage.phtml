@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="<?= $config->language ?>">
+
+<head>
+  <?php include __DIR__ . '/partials/head.phtml' ?>
+</head>
+
+<body>
+  <?php include __DIR__ . '/partials/header.phtml' ?>
+
+  <?php
+    foreach ($entity->get('sections') as $section) :
+      $entity = $sections->findByFieldValue('title', $section['content']);
+      include __DIR__ . '/sections/' . $section['template'];
+    endforeach;
+  ?>
+
+  <?php include __DIR__ . '/partials/footer.phtml' ?>
+
+</body>
+
+</html>

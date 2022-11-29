@@ -16,6 +16,7 @@ use Simpla\Entity\EntityFactory;
 use Simpla\Content\ContentIteratorFactory;
 use Simpla\Content\ContentIterator;
 use Simpla\Content\ContentGenerator;
+use Simpla\Content\PageGenerator;
 use Simpla\Content\ContentIndexGenerator;
 use Simpla\Content\TagIndexGenerator;
 use Simpla\Content\MenuGenerator;
@@ -23,6 +24,7 @@ use Simpla\Content\FeedGenerator;
 use Simpla\Asset\AssetHandler;
 use Pagerange\Markdown\MetaParsedown;
 use Simpla\Entity\Snippet;
+use Simpla\Entity\Section;
 
 $container = new Container();
 
@@ -61,6 +63,14 @@ $container->snippetStore = function () use ($container): ContentIterator {
     );
 };
 
+$container->sectionStore = function () use ($container): ContentIterator {
+    return new ContentIterator(
+        $container('config')->folders->content . $container('config')->content->sections,
+        Section::TYPE,
+        $container('entityFactory')
+    );
+};
+
 
 $container->postGenerator = function () use ($container): ContentGenerator {
     $postGenerator = new ContentGenerator(
@@ -70,10 +80,11 @@ $container->postGenerator = function () use ($container): ContentGenerator {
     return $postGenerator;
 };
 
-$container->pageGenerator = function () use ($container): ContentGenerator {
-    $pageGenerator = new ContentGenerator(
+$container->pageGenerator = function () use ($container): PageGenerator {
+    $pageGenerator = new PageGenerator(
         $container('config')->views->page,
-        $container('config')
+        $container('config'),
+        $container('sectionStore')
     );
     return $pageGenerator;
 };

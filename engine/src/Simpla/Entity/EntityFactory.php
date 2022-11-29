@@ -40,6 +40,9 @@ class EntityFactory
         case Snippet::TYPE:
           $entity = Snippet::createFromArray($entityData);
         break;
+        case Section::TYPE:
+          $entity = Section::createFromArray($entityData);
+        break;
         default:
           throw new EntityException(static::class . ': could not create Entity. ' . $type . ' is invalid.');
         break;

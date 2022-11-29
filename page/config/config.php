@@ -55,6 +55,7 @@ return json_decode(json_encode([
     "posts" => "posts",
     "pages" => "pages",
     "snippets" => "snippets",
+    "sections" => "sections",
   ],
   "file_extension_content" => "html",
   "file_extension_feed" => "xml",

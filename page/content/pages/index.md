@@ -5,6 +5,11 @@ status: 'published'
 created_at: '2020-11-02'
 menu: 'main'
 template: 'homepage.phtml'
+sections:
+  - content: 'homepage_stage.md'
+    template: 'homepage_stage.phtml'
+  - content: 'homepage_team.md'
+    template: 'homepage_team.phtml'
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac tempus nisl. Proin ultrices interdum quam et mattis. Duis dignissim lorem quis mi faucibus gravida. Morbi luctus nec lacus non cursus. Phasellus vitae imperdiet lectus. Cras ac lobortis neque, et imperdiet leo. Pellentesque dapibus lectus sed enim fringilla fringilla.
