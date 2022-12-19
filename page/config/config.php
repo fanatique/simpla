@@ -1,18 +1,18 @@
 <?php
 
 return json_decode(json_encode([
-  "theme" => "default",
-  "base_url" => "",
-  "tag_path" => "tags",
-  "title" => "A Demo Page",
-  "tagline" => "yes, just a demo",
-  "description" => "Lorem ipsum dolor sit amet.",
-  "language" => "en-US",
-  "author" => "Alexander Thomas",
+  "theme" => "default", // Defining which theme to use. It refers to the collection of templates, that should be found under `page/views/[THEME]/...`
+  "base_url" => "", // The full URL under which your site can be found.
+  "title" => "A Demo Page", // That should be the main title of your site. It's used in the `header` as well as in the meta tags.
+  "tagline" => "yes, just a demo", // A succinct description of your website.
+  "description" => "Lorem ipsum dolor sit amet.", //  A short description of this website, which is being used for the description meta tag.
+  "language" => "en-US", // A language code, that sets the document's language attribute (i.e. `en-US` for American English). For more details, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
+  "author" => "Alexander Thomas", // A default author that is used if a page or a post does not specify one.
   "slugs" => [
-    "post_index" => "blog",
+    "post_index" => "blog", // defines the filename of the index of the latest blog posts should be stored.
     "feed" => "feed",
   ],
+  "tag_path" => "tags", //URL namespace under which tag related index pages are being published
   "menus" => [
     "main" => [
       ["internal" => "index", "label" => "Home"],
@@ -20,7 +20,6 @@ return json_decode(json_encode([
       ["internal" => "about", "label" => "About", "type" => "content"],
     ],
     "social" => [
-      ["external" => "https://twitter.com/fanatique", "label" => "Twitter"],
       ["external" => "https://github.com/fanatique", "label" => "Github"],
       ["internal" => "feed", "label" => "Feed", "type" => "feed"],
     ],
@@ -29,8 +28,6 @@ return json_decode(json_encode([
       ["internal" => "privacy-policy", "label" => "Privacy Policy", "type" => "content"],
     ]
   ],
-  "twitter_handle" => "@fanatique",
-  "github_handle" => "@fanatique",
   "folders" => [
     "assets" => "assets",
     "dist" => __DIR__ . "/../../dist",
