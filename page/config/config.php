@@ -1,19 +1,24 @@
 <?php
 
 return json_decode(json_encode([
+  
+  /**
+   * Configuration options for your Page.
+   * Have fun adjusting them! :)
+   */
   "theme" => "default", // Defining which theme to use. It refers to the collection of templates, that should be found under `page/views/[THEME]/...`
   "base_url" => "", // The full URL under which your site can be found.
-  "title" => "A Demo Page", // That should be the main title of your site. It's used in the `header` as well as in the meta tags.
+  "title" => "A Demo Page", // This should be the main title of your site. It's used in the `header` as well as in the meta tags.
   "tagline" => "yes, just a demo", // A succinct description of your website.
   "description" => "Lorem ipsum dolor sit amet.", //  A short description of this website, which is being used for the description meta tag.
   "language" => "en-US", // A language code, that sets the document's language attribute (i.e. `en-US` for American English). For more details, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
   "author" => "Alexander Thomas", // A default author that is used if a page or a post does not specify one.
   "slugs" => [
     "post_index" => "blog", // defines the filename of the index of the latest blog posts should be stored.
-    "feed" => "feed",
+    "feed" => "feed", // Filename of the RSS feed that gehts generated.
   ],
   "tag_path" => "tags", //URL namespace under which tag related index pages are being published
-  "menus" => [
+  "menus" => [ // Each key defines a menu, which expects a template in `page/views/menus/[KEY_OF_THE_ENTRY_AS_FILENAME].phtml`.
     "main" => [
       ["internal" => "index", "label" => "Home"],
       ["internal" => "blog", "label" => "Blog"],
@@ -28,6 +33,11 @@ return json_decode(json_encode([
       ["internal" => "privacy-policy", "label" => "Privacy Policy", "type" => "content"],
     ]
   ],
+  
+  /**
+   * From here on, you're entering the machine room!
+   * No adjustments required here.
+   */
   "folders" => [
     "assets" => "assets",
     "dist" => __DIR__ . "/../../dist",
