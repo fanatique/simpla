@@ -19,10 +19,15 @@ class MarkdownParser
     private const CODE_PLACEHOLDER_PREFIX = "\x00SMP_CODE\x00";
 
     private bool $escapeHtml;
+    private bool $imageLazyLoading;
 
-    public function __construct(bool $escapeHtml = false)
+    /**
+     * @param array{image_lazy?: bool} $options
+     */
+    public function __construct(bool $escapeHtml = false, array $options = [])
     {
         $this->escapeHtml = $escapeHtml;
+        $this->imageLazyLoading = $options['image_lazy'] ?? true;
     }
 
     public function meta(string $markdown): array
@@ -332,8 +337,10 @@ class MarkdownParser
         $widthAttr = $attrs['width'] !== null ? ' width="' . htmlspecialchars($attrs['width'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
         $heightAttr = $attrs['height'] !== null ? ' height="' . htmlspecialchars($attrs['height'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
         $classAttr = $attrs['class'] !== null ? ' class="' . htmlspecialchars($attrs['class'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
+        $loadingValue = $attrs['loading'] ?? ($this->imageLazyLoading ? 'lazy' : null);
+        $loadingAttr = $loadingValue !== null ? ' loading="' . htmlspecialchars($loadingValue, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
 
-        $imgTag = '<img src="' . $srcEscaped . '" alt="' . $altEscaped . '"' . $titleAttr . $widthAttr . $heightAttr . $classAttr . '>';
+        $imgTag = '<img src="' . $srcEscaped . '" alt="' . $altEscaped . '"' . $titleAttr . $widthAttr . $heightAttr . $classAttr . $loadingAttr . '>';
 
         if (!$attrs['picture']) {
             return $imgTag;
@@ -360,6 +367,7 @@ class MarkdownParser
             'width' => null,
             'height' => null,
             'class' => null,
+            'loading' => null,
         ];
 
         if ($attrBlock === null) {

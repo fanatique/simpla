@@ -42,8 +42,10 @@ $container->imageOptimizer = function () use ($container): ImageOptimizer {
     return new ImageOptimizer($container('assetHandler'));
 };
 
-$container->entityFactory = function (): EntityFactory {
-    $markdownParser = new MarkdownParser();
+$container->entityFactory = function () use ($container): EntityFactory {
+    $markdownParser = new MarkdownParser(false, [
+        'image_lazy' => $container('config')->images->lazy ?? true,
+    ]);
     return new EntityFactory($markdownParser);
 };
 

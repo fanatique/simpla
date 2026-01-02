@@ -186,7 +186,7 @@ MD;
 
         self::assertStringContainsString('<picture>', $html);
         self::assertStringContainsString('<source srcset="/img/foo.webp" type="image/webp">', $html);
-        self::assertStringContainsString('<img src="/img/foo.jpg" alt="Alt Text" title="Caption" width="800" height="450">', $html);
+        self::assertStringContainsString('<img src="/img/foo.jpg" alt="Alt Text" title="Caption" width="800" height="450" loading="lazy">', $html);
     }
 
     public function testImageWithoutPictureRendersImg(): void
@@ -196,8 +196,28 @@ MD;
 
         $html = $parser->text($markdown);
 
-        self::assertStringContainsString('<img src="/img/foo.jpg" alt="Alt Text" title="Caption">', $html);
+        self::assertStringContainsString('<img src="/img/foo.jpg" alt="Alt Text" title="Caption" loading="lazy">', $html);
         self::assertStringNotContainsString('<picture>', $html);
+    }
+
+    public function testImageLoadingCanBeOverridden(): void
+    {
+        $markdown = '![Alt Text](/img/foo.jpg "Caption"){loading="eager"}';
+        $parser = new MarkdownParser();
+
+        $html = $parser->text($markdown);
+
+        self::assertStringContainsString('loading="eager"', $html);
+    }
+
+    public function testImageLoadingCanBeDisabledViaOptions(): void
+    {
+        $markdown = '![Alt Text](/img/foo.jpg "Caption")';
+        $parser = new MarkdownParser(false, ['image_lazy' => false]);
+
+        $html = $parser->text($markdown);
+
+        self::assertStringNotContainsString('loading="lazy"', $html);
     }
 }
 

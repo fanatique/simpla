@@ -44,6 +44,7 @@ return json_decode(json_encode([
     "webp_quality" => 82, // 0-100
     "jpeg_quality" => 82, // 0-100
     "png_compression" => 6, // 0 (no compression) to 9 (max)
+    "lazy" => true, // Add loading="lazy" to Markdown images by default
   ],
   "views" => [
     "post" => "post.phtml",
