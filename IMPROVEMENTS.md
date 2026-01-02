@@ -14,6 +14,14 @@ This document tracks completed improvements, planned features, and useful comman
 - Removed `parsedown` / `metaparsedown` dependencies
 - Implemented custom `Simpla\Markdown\MarkdownParser` with built-in frontmatter support
 
+### Media & Images
+- Docker image now builds GD with WebP (libjpeg/libpng/libwebp) for on-board optimization
+- New `ImageOptimizer` pipeline: resize/compress JPEG/PNG/WebP, emit WebP alongside originals, configurable via `config.php -> images`
+- Markdown supports `{picture webp="..."}` on image syntax to auto-render `<picture>` with WebP source + fallback `<img>`
+- Markdown images default to `loading="lazy"` (configurable), per-image override via `{loading="eager"}`
+- Post/Page header images in themes render as `<picture>` with WebP + fallback
+- Cleaned up deprecated `imagedestroy()` calls for PHP 8.5
+
 ### Error Handling & Robustness
 - **EntityFactory**: File existence checks, required field validation
 - **ContentIterator**: Path validation, `.md` filter, hidden file exclusion
@@ -65,7 +73,7 @@ This document tracks completed improvements, planned features, and useful comman
 - [ ] JSON feed support (alongside RSS)
 - [ ] Draft preview mode (build drafts to separate folder)
 - [ ] Incremental builds (only changed content)
-- [ ] Image optimization during build
+- [x] ~~Image optimization during build~~
 
 ---
 
