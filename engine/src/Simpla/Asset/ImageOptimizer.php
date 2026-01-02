@@ -118,11 +118,6 @@ class ImageOptimizer
             $this->writeWebp($workingImage, $webpPath, $options['webp_quality']);
         }
 
-        if ($needsResize) {
-            imagedestroy($workingImage);
-        }
-        imagedestroy($sourceImage);
-
         return true;
     }
 
