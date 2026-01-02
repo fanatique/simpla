@@ -209,8 +209,16 @@ class MarkdownParser
                 $flushParagraph();
                 $flushList();
                 $level = strlen($matches[1]);
-                $text = $this->renderInline($matches[2]);
-                $html[] = sprintf('<h%d>%s</h%d>', $level, $text, $level);
+                $headingText = $matches[2];
+                $text = $this->renderInline($headingText);
+                $idAttribute = '';
+                if ($level <= 3) {
+                    $id = $this->slugifyHeading($headingText);
+                    if ($id !== '') {
+                        $idAttribute = ' id="' . $id . '"';
+                    }
+                }
+                $html[] = sprintf('<h%d%s>%s</h%d>', $level, $idAttribute, $text, $level);
                 continue;
             }
 
@@ -246,6 +254,18 @@ class MarkdownParser
         }
 
         return implode("\n", $html);
+    }
+
+    private function slugifyHeading(string $headingText): string
+    {
+        // Normalize inline markdown to plain text and generate a URL-safe slug.
+        $renderedInline = $this->renderInline($headingText);
+        $plainText = trim(strip_tags($renderedInline));
+        $decoded = html_entity_decode($plainText, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $lower = function_exists('mb_strtolower') ? mb_strtolower($decoded, 'UTF-8') : strtolower($decoded);
+        $sanitized = preg_replace('/[^\\p{L}\\p{N}\\s-]/u', '', $lower) ?? '';
+        $collapsed = preg_replace('/[\\s_-]+/u', '-', $sanitized) ?? '';
+        return trim($collapsed, '-');
     }
 
     private function looksLikeHtml(string $text): bool

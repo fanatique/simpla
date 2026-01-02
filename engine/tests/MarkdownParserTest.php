@@ -38,9 +38,27 @@ MD;
         self::assertSame('2024-01-01', $meta['created_at']);
 
         $html = $parser->text($markdown);
-        self::assertStringContainsString('<h1>Heading</h1>', $html);
+        self::assertStringContainsString('<h1 id="heading">Heading</h1>', $html);
         self::assertStringContainsString('<strong>bold</strong>', $html);
         self::assertStringContainsString('<code>code</code>', $html);
+    }
+
+    public function testHeadingsLevelOneToThreeReceiveIds(): void
+    {
+        $markdown = <<<MD
+# Hello World
+## Überschrift ÄÖÜß
+### With **Bold** Text!
+#### No id here
+MD;
+
+        $parser = new MarkdownParser();
+        $html = $parser->text($markdown);
+
+        self::assertStringContainsString('<h1 id="hello-world">Hello World</h1>', $html);
+        self::assertStringContainsString('<h2 id="überschrift-äöüß">Überschrift ÄÖÜß</h2>', $html);
+        self::assertStringContainsString('<h3 id="with-bold-text">With <strong>Bold</strong> Text!</h3>', $html);
+        self::assertStringNotContainsString('<h4 id="', $html);
     }
 
     public function testUnclosedFrontmatterReturnsEmptyMeta(): void
