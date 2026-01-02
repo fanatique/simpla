@@ -21,6 +21,7 @@ use Simpla\Content\TagIndexGenerator;
 use Simpla\Content\MenuGenerator;
 use Simpla\Content\FeedGenerator;
 use Simpla\Asset\AssetHandler;
+use Simpla\Asset\ImageOptimizer;
 use Simpla\Markdown\MarkdownParser;
 use Simpla\Entity\Snippet;
 
@@ -35,6 +36,10 @@ $container->config = require __DIR__ . '/../../page/config/config.php';
 
 $container->assetHandler = function (): AssetHandler {
     return new AssetHandler();
+};
+
+$container->imageOptimizer = function () use ($container): ImageOptimizer {
+    return new ImageOptimizer($container('assetHandler'));
 };
 
 $container->entityFactory = function (): EntityFactory {

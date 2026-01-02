@@ -37,6 +37,14 @@ return json_decode(json_encode([
     "views" => __DIR__ . "/../views/",
     "content" => __DIR__ . "/../content/",
   ],
+  "images" => [
+    "max_width" => 1920, // Set to null to disable width downscaling
+    "max_height" => 1080, // Set to null to disable height downscaling
+    "generate_webp" => true, // Also emit WebP versions next to originals
+    "webp_quality" => 82, // 0-100
+    "jpeg_quality" => 82, // 0-100
+    "png_compression" => 6, // 0 (no compression) to 9 (max)
+  ],
   "views" => [
     "post" => "post.phtml",
     "post_index" => "index.phtml",
