@@ -16,7 +16,7 @@ namespace Simpla\Markdown;
 class MarkdownParser
 {
     private const FRONT_MATTER_DELIMITER = '---';
-    private const CODE_PLACEHOLDER_PREFIX = '__SMP_CODE_PLACEHOLDER_';
+    private const CODE_PLACEHOLDER_PREFIX = "\x00SMP_CODE\x00";
 
     private bool $escapeHtml;
 
@@ -277,7 +277,7 @@ class MarkdownParser
     {
         $codePlaceholders = [];
         $textWithPlaceholders = preg_replace_callback('/`([^`]+)`/', function ($matches) use (&$codePlaceholders) {
-            $token = self::CODE_PLACEHOLDER_PREFIX . count($codePlaceholders) . '__';
+            $token = self::CODE_PLACEHOLDER_PREFIX . count($codePlaceholders) . "\x00";
             $codePlaceholders[$token] = '<code>' . htmlspecialchars($matches[1], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</code>';
             return $token;
         }, $text) ?? $text;
@@ -286,11 +286,13 @@ class MarkdownParser
             $textWithPlaceholders = htmlspecialchars($textWithPlaceholders, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         }
 
-        // Bold
+        // Bold: **text** and __text__
         $textWithPlaceholders = preg_replace('/\\*\\*(.+?)\\*\\*/s', '<strong>$1</strong>', $textWithPlaceholders) ?? $textWithPlaceholders;
+        $textWithPlaceholders = preg_replace('/(?<![\\w])__(.+?)__(?![\\w])/s', '<strong>$1</strong>', $textWithPlaceholders) ?? $textWithPlaceholders;
 
-        // Italic
+        // Italic: *text* and _text_
         $textWithPlaceholders = preg_replace('/\\*(.+?)\\*/s', '<em>$1</em>', $textWithPlaceholders) ?? $textWithPlaceholders;
+        $textWithPlaceholders = preg_replace('/(?<![\\w])_(.+?)_(?![\\w])/s', '<em>$1</em>', $textWithPlaceholders) ?? $textWithPlaceholders;
 
         // Links with optional title
         $textWithPlaceholders = preg_replace_callback('/\\[([^\\]]+)\\]\\(([^)\\s]+)(?:\\s+"([^"]+)")?\\)/', function ($matches) {

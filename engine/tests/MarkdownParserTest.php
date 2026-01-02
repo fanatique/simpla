@@ -142,5 +142,39 @@ MD;
         self::assertStringNotContainsString('<script>', $html);
         self::assertStringContainsString('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;', $html);
     }
+
+    public function testUnderscoreEmphasis(): void
+    {
+        $markdown = "It's not _music I like_, it's _music I need to breathe_.";
+        $parser = new MarkdownParser();
+
+        $html = $parser->text($markdown);
+
+        self::assertStringContainsString('<em>music I like</em>', $html);
+        self::assertStringContainsString('<em>music I need to breathe</em>', $html);
+        self::assertStringNotContainsString('_music', $html);
+    }
+
+    public function testUnderscoreBold(): void
+    {
+        $markdown = 'This is __very important__ text.';
+        $parser = new MarkdownParser();
+
+        $html = $parser->text($markdown);
+
+        self::assertStringContainsString('<strong>very important</strong>', $html);
+        self::assertStringNotContainsString('__', $html);
+    }
+
+    public function testUnderscoresInWordsAreNotFormatted(): void
+    {
+        $markdown = 'Variable names like some_variable_name should stay unchanged.';
+        $parser = new MarkdownParser();
+
+        $html = $parser->text($markdown);
+
+        self::assertStringContainsString('some_variable_name', $html);
+        self::assertStringNotContainsString('<em>', $html);
+    }
 }
 
