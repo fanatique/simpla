@@ -70,6 +70,7 @@ my-website/
 | [Setting Up a Custom Page](documentation/02.setting-up-a-customized-page.md) | Deep dive into templates and theming |
 | [Creating Content](documentation/03.creating-content.md) | Writing posts, pages, and working with media |
 | [GitHub Actions Deployment](documentation/04.github-actions-deployment.md) | Automated builds and deployment |
+| [Template API Reference](documentation/05.template-api-reference.md) | Complete reference for template variables |
 
 ## Contributing
 

@@ -45,10 +45,10 @@ This document tracks completed improvements, planned features, and useful comman
 - [ ] **AssetHandler** – Copy/write failure path testing
 
 ### Parser Enhancements
-- [ ] Table support in Markdown
-- [ ] Stricter frontmatter parsing (YAML-compatible)
-- [ ] Optional escaping strategy documentation
-- [ ] Code block language detection improvements
+- [x] Table support in Markdown
+- [x] Stricter frontmatter parsing (YAML-compatible)
+- [x] Optional escaping strategy documentation
+- [x] Code block language detection improvements
 
 ### Build & CI
 - [x] ~~CI pipeline setup~~ – See [GitHub Actions guide](documentation/04.github-actions-deployment.md)
@@ -57,7 +57,7 @@ This document tracks completed improvements, planned features, and useful comman
 
 ### Documentation
 - [x] ~~Comprehensive documentation rewrite~~ – Complete!
-- [ ] API reference for template variables
+- [x] ~~API reference for template variables~~ – See [Template API Reference](documentation/05.template-api-reference.md)
 - [ ] Video tutorials
 
 ### Features (Maybe)
