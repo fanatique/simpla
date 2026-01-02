@@ -286,6 +286,19 @@ class MarkdownParser
             $textWithPlaceholders = htmlspecialchars($textWithPlaceholders, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         }
 
+        // Images (optional {picture ...} attribute block to emit <picture> with WebP source)
+        $textWithPlaceholders = preg_replace_callback(
+            '/!\\[([^\\]]*)\\]\\(([^)\\s]+)(?:\\s+"([^"]+)")?\\)\\s*(\\{[^}]*\\})?/',
+            function ($matches) {
+                $alt = $matches[1];
+                $src = $matches[2];
+                $title = $matches[3] ?? null;
+                $attrBlock = $matches[4] ?? null;
+                return $this->renderImage($alt, $src, $title, $attrBlock);
+            },
+            $textWithPlaceholders
+        ) ?? $textWithPlaceholders;
+
         // Bold: **text** and __text__
         $textWithPlaceholders = preg_replace('/\\*\\*(.+?)\\*\\*/s', '<strong>$1</strong>', $textWithPlaceholders) ?? $textWithPlaceholders;
         $textWithPlaceholders = preg_replace('/(?<![\\w])__(.+?)__(?![\\w])/s', '<strong>$1</strong>', $textWithPlaceholders) ?? $textWithPlaceholders;
@@ -307,6 +320,81 @@ class MarkdownParser
         }
 
         return $textWithPlaceholders;
+    }
+
+    private function renderImage(string $alt, string $src, ?string $title, ?string $attrBlock): string
+    {
+        $attrs = $this->parseImageAttributes($attrBlock);
+
+        $altEscaped = htmlspecialchars($alt, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $srcEscaped = htmlspecialchars($src, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $titleAttr = $title !== null ? ' title="' . htmlspecialchars($title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
+        $widthAttr = $attrs['width'] !== null ? ' width="' . htmlspecialchars($attrs['width'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
+        $heightAttr = $attrs['height'] !== null ? ' height="' . htmlspecialchars($attrs['height'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
+        $classAttr = $attrs['class'] !== null ? ' class="' . htmlspecialchars($attrs['class'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '"' : '';
+
+        $imgTag = '<img src="' . $srcEscaped . '" alt="' . $altEscaped . '"' . $titleAttr . $widthAttr . $heightAttr . $classAttr . '>';
+
+        if (!$attrs['picture']) {
+            return $imgTag;
+        }
+
+        $sources = [];
+        if ($attrs['webp'] !== null) {
+            $webpEscaped = htmlspecialchars($attrs['webp'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+            $sources[] = '<source srcset="' . $webpEscaped . '" type="image/webp">';
+        }
+
+        if (count($sources) === 0) {
+            return $imgTag;
+        }
+
+        return '<picture>' . implode('', $sources) . $imgTag . '</picture>';
+    }
+
+    private function parseImageAttributes(?string $attrBlock): array
+    {
+        $attributes = [
+            'picture' => false,
+            'webp' => null,
+            'width' => null,
+            'height' => null,
+            'class' => null,
+        ];
+
+        if ($attrBlock === null) {
+            return $attributes;
+        }
+
+        $content = trim($attrBlock, "{} \t\n\r\0\x0B");
+        if ($content === '') {
+            return $attributes;
+        }
+
+        $tokens = preg_split('/\\s+/', $content) ?: [];
+        foreach ($tokens as $token) {
+            if ($token === '') {
+                continue;
+            }
+
+            if ($token === 'picture') {
+                $attributes['picture'] = true;
+                continue;
+            }
+
+            if (!preg_match('/^([A-Za-z0-9_-]+)=(?:"([^"]*)"|\'([^\']*)\')$/', $token, $matches)) {
+                continue;
+            }
+
+            $key = $matches[1];
+            $value = $matches[2] !== '' ? $matches[2] : $matches[3];
+
+            if (array_key_exists($key, $attributes)) {
+                $attributes[$key] = $value;
+            }
+        }
+
+        return $attributes;
     }
 
     private function parseYamlScalar(string $value): mixed

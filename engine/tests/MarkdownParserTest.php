@@ -176,5 +176,28 @@ MD;
         self::assertStringContainsString('some_variable_name', $html);
         self::assertStringNotContainsString('<em>', $html);
     }
+
+    public function testImageWithPictureAttributes(): void
+    {
+        $markdown = '![Alt Text](/img/foo.jpg "Caption"){picture webp="/img/foo.webp" width="800" height="450"}';
+        $parser = new MarkdownParser();
+
+        $html = $parser->text($markdown);
+
+        self::assertStringContainsString('<picture>', $html);
+        self::assertStringContainsString('<source srcset="/img/foo.webp" type="image/webp">', $html);
+        self::assertStringContainsString('<img src="/img/foo.jpg" alt="Alt Text" title="Caption" width="800" height="450">', $html);
+    }
+
+    public function testImageWithoutPictureRendersImg(): void
+    {
+        $markdown = '![Alt Text](/img/foo.jpg "Caption")';
+        $parser = new MarkdownParser();
+
+        $html = $parser->text($markdown);
+
+        self::assertStringContainsString('<img src="/img/foo.jpg" alt="Alt Text" title="Caption">', $html);
+        self::assertStringNotContainsString('<picture>', $html);
+    }
 }
 
