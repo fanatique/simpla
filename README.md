@@ -72,6 +72,17 @@ my-website/
 | [GitHub Actions Deployment](documentation/04.github-actions-deployment.md) | Automated builds and deployment |
 | [Template API Reference](documentation/05.template-api-reference.md) | Complete reference for template variables |
 
+## Building the Docker Image
+
+If you're building the Docker image yourself (e.g., after forking), make sure to build for multiple architectures so it works on both Apple Silicon and GitHub Actions:
+
+```bash
+# Build for both ARM and AMD64
+docker buildx build --platform linux/amd64,linux/arm64 -t fanatique/simpla:latest --push .
+```
+
+> **Note:** Building only on your Mac (ARM) will create an image that fails on GitHub Actions (AMD64) with "exec format error".
+
 ## Contributing
 
 I've written Simpla mainly for myself, but I like the idea and had to document it anyway.
