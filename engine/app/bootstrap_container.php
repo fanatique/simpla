@@ -21,7 +21,7 @@ use Simpla\Content\TagIndexGenerator;
 use Simpla\Content\MenuGenerator;
 use Simpla\Content\FeedGenerator;
 use Simpla\Asset\AssetHandler;
-use Pagerange\Markdown\MetaParsedown;
+use Simpla\Markdown\MarkdownParser;
 use Simpla\Entity\Snippet;
 
 $container = new Container();
@@ -38,7 +38,7 @@ $container->assetHandler = function (): AssetHandler {
 };
 
 $container->entityFactory = function (): EntityFactory {
-    $markdownParser = new MetaParsedown();
+    $markdownParser = new MarkdownParser();
     return new EntityFactory($markdownParser);
 };
 

@@ -8,7 +8,9 @@ even if you are updating your site very rarely.
 It doesn't have an awful lot of features, but it also has almost no
 dependencies, so that there is no need to perform the
 `npm/composer/wp-cli update` raindance everytime you only wanted to
-write a quick status update.
+write a quick status update. The engine now targets PHP 8.5 and ships
+with a tiny built-in Markdown/frontmatter parser, so no external
+Markdown libraries are required.
 
 __But be aware!__ – Using Simpla might lead to a situation where you actually
 have to write that blog post you wanted to write with no chance to blame

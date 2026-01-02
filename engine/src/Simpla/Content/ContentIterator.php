@@ -57,17 +57,14 @@ class ContentIterator extends \DirectoryIterator
         return $entity;
     }
 
-    /** Tweaking DirectoryIterator::next() to only return real files
-     */
-    public function next(): ContentIterator
+    /** Tweaking DirectoryIterator::next() to only return real files */
+    public function next(): void
     {
         parent::next();
 
         while ($this->valid() && ($this->isDot() || !$this->isFile())) {
             parent::next();
         }
-
-        return $this;
     }
 
     /** Tweaking DirectoryIterator::current() to skip . and ..
@@ -96,7 +93,7 @@ class ContentIterator extends \DirectoryIterator
     }
 
 
-    public function findByFieldValue(string $field, string $value)
+    public function findByFieldValue(string $field, string $value): ?EntityInterface
     {
         foreach ($this as $item) {
             if ($item->getEntity()->get($field) === $value && $item->getEntity()->get('status') === 'published') {

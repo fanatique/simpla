@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Simpla\Entity;
 
-use Pagerange\Markdown\MetaParsedown;
+use Simpla\Markdown\MarkdownParser;
 
 class EntityFactory
 {
-    protected $markdownParser;
+    protected MarkdownParser $markdownParser;
 
-    public function __construct(MetaParsedown $markdownParser)
+    public function __construct(MarkdownParser $markdownParser)
     {
         $this->markdownParser = $markdownParser;
     }

@@ -3,8 +3,7 @@
     "description": "Alexander Thomas <me@alexander-thomas.net>",
     "type": "project",
     "require": {
-        "erusev/parsedown": "^1.7",
-        "pagerange/metaparsedown": "^1.0",
+        "php": "^8.5",
         "suin/php-rss-writer": "^1.6"
     },
     "license": "MIT",

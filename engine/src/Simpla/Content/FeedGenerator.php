@@ -22,10 +22,10 @@ class FeedGenerator implements ContentGeneratorInterface
 {
     use ExtractAndSortEntitiesTrait;
 
-    protected $feed;
-    protected $template;
-    protected $config;
-    protected $slug;
+    protected Feed $feed;
+    protected Channel $channel;
+    protected string $slug;
+    protected object $config;
 
     public function __construct(string $slug, object $config)
     {

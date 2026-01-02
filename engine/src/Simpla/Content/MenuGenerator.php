@@ -17,8 +17,8 @@ use Simpla\Content\ContentIterator;
 
 class MenuGenerator implements ContentGeneratorInterface
 {
-    protected $templates;
-    protected $sconfig;
+    protected object $templates;
+    protected object $config;
 
     public function __construct(object $templates, object $config)
     {
