@@ -24,6 +24,9 @@ class ContentIterator extends \DirectoryIterator
 
     public function __construct(string $path, string $type, EntityFactory $entityFactory)
     {
+        if (!is_dir($path)) {
+            throw new \InvalidArgumentException('Content path is not a directory: ' . $path);
+        }
         $this->type = $type;
         $this->entityFactory = $entityFactory;
         parent::__construct($path);
@@ -62,7 +65,7 @@ class ContentIterator extends \DirectoryIterator
     {
         parent::next();
 
-        while ($this->valid() && ($this->isDot() || !$this->isFile())) {
+        while ($this->valid() && ($this->isDot() || !$this->isEligibleFile())) {
             parent::next();
         }
     }
@@ -71,7 +74,7 @@ class ContentIterator extends \DirectoryIterator
      */
     public function current(): ContentIterator
     {
-        while ($this->valid() && ($this->isDot() || !$this->isFile())) {
+        while ($this->valid() && ($this->isDot() || !$this->isEligibleFile())) {
             parent::next();
         }
         return parent::current();
@@ -102,5 +105,17 @@ class ContentIterator extends \DirectoryIterator
         }
       
         return null;
+    }
+
+    private function isEligibleFile(): bool
+    {
+        if (!$this->isFile()) {
+            return false;
+        }
+        $filename = $this->getFilename();
+        if (str_starts_with($filename, '.')) {
+            return false;
+        }
+        return strtolower(pathinfo($filename, PATHINFO_EXTENSION)) === 'md';
     }
 }

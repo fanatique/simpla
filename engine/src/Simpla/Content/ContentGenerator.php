@@ -15,9 +15,12 @@ namespace Simpla\Content;
 
 use Simpla\Content\ContentIterator;
 use Simpla\Entity\EntityInterface;
+use Simpla\Content\TemplateRendererTrait;
 
 class ContentGenerator implements ContentGeneratorInterface
 {
+    use TemplateRendererTrait;
+
     protected $defaultTemplate;
     protected $config;
 
@@ -50,17 +53,13 @@ class ContentGenerator implements ContentGeneratorInterface
 
         // Make config available to the template
         $config = $this->config;
-
         $template = $entity->get('template') ?? $this->defaultTemplate;
+        $templatePath = $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $template;
 
-        // Render template (including immediately executes script!)
-        include $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $template;
-
-        // Write buffer into output array
-        $generatedContent = ob_get_contents();
-
-        ob_end_clean();
-
-        return $generatedContent;
+        return $this->renderTemplate($templatePath, [
+            'entity' => $entity,
+            'config' => $config,
+            'generatedMenus' => $generatedMenus,
+        ]);
     }
 }

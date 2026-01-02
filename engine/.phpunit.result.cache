@@ -1,0 +1,1 @@
+{"version":2,"defects":{"EntityFactoryTest::testCreatesPostFromMarkdown":7},"times":{"ContentIteratorTest::testIteratesOnlyMarkdownFiles":0.001,"EntityFactoryTest::testCreatesPostFromMarkdown":0,"EntityFactoryTest::testThrowsOnMissingFile":0,"MarkdownParserTest::testParsesFrontmatterAndBody":0,"MarkdownParserTest::testUnclosedFrontmatterReturnsEmptyMeta":0}}

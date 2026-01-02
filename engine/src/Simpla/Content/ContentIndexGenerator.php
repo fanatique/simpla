@@ -15,10 +15,12 @@ namespace Simpla\Content;
 
 use Simpla\Content\ContentIterator;
 use Simpla\Content\ExtractAndSortEntitiesTrait;
+use Simpla\Content\TemplateRendererTrait;
 
 class ContentIndexGenerator implements ContentGeneratorInterface
 {
     use ExtractAndSortEntitiesTrait;
+    use TemplateRendererTrait;
 
     protected $template;
     protected $config;
@@ -45,14 +47,14 @@ class ContentIndexGenerator implements ContentGeneratorInterface
 
         $entities = $this->extractAndSortEntities($contentItems);
         $displayExcerpt = true;
+        $templatePath = $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $this->template;
 
-        // Render template (including immediately executes script!)
-        include $config->folders->views . $config->theme . \DIRECTORY_SEPARATOR . $this->template;
-
-        // Write buffer into output variable
-        $generatedContent = ob_get_contents();
-        ob_end_clean();
-
-        return $generatedContent;
+        return $this->renderTemplate($templatePath, [
+            'config' => $config,
+            'slug' => $slug,
+            'entities' => $entities,
+            'displayExcerpt' => $displayExcerpt,
+            'generatedMenus' => $generatedMenus,
+        ]);
     }
 }

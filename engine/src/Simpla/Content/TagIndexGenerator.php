@@ -15,6 +15,8 @@ namespace Simpla\Content;
 
 class TagIndexGenerator implements ContentGeneratorInterface
 {
+    use TemplateRendererTrait;
+
     protected $template;
     protected $config;
     protected $snippetStore;
@@ -38,22 +40,18 @@ class TagIndexGenerator implements ContentGeneratorInterface
 
     public function generateTagIndex(string $tagName, array $entities, array $generatedMenus = []): string
     {
-        ob_start();
-        // Make config available to the template
         $config = $this->config;
-
         $slug = $tagName;
-        
         $snippet = $this->snippetStore->findByFieldValue('title', $tagName);
 
-        // Render template (including immediately executes script!)
-        include $config->folders->views . $this->config->theme . \DIRECTORY_SEPARATOR . $this->template;
+        $templatePath = $config->folders->views . $this->config->theme . \DIRECTORY_SEPARATOR . $this->template;
 
-        // Write buffer into output array
-        $generatedEntity = (string) ob_get_contents();
-
-        ob_end_clean();
-
-        return $generatedEntity;
+        return $this->renderTemplate($templatePath, [
+            'config' => $config,
+            'slug' => $slug,
+            'entities' => $entities,
+            'snippet' => $snippet,
+            'generatedMenus' => $generatedMenus,
+        ]);
     }
 }

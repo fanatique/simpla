@@ -20,18 +20,31 @@ class AssetHandler
      */
     public function copyRecursively(string $sourceFolder, string $distFolder): void
     {
-        if (!is_writable(dirname($sourceFolder)) || !is_writable(dirname($distFolder))) {
-            throw new \InvalidArgumentException($sourceFolder . ' or ' . $distFolder . ' are not writeable.');
+        if (!is_dir($sourceFolder)) {
+            throw new \InvalidArgumentException('Source folder does not exist: ' . $sourceFolder);
+        }
+
+        $this->createDirectoryRecursively($distFolder);
+        if (!is_writable($distFolder)) {
+            throw new \InvalidArgumentException('Destination is not writable: ' . $distFolder);
         }
 
         $dir = opendir($sourceFolder);
-        @mkdir($distFolder);
+        if ($dir === false) {
+            throw new \InvalidArgumentException('Cannot open source folder: ' . $sourceFolder);
+        }
+
         while (false !== ($file = readdir($dir))) {
-            if (($file != '.') && ($file != '..')) {
-                if (is_dir($sourceFolder . '/' . $file)) {
-                    $this->copyRecursively($sourceFolder . '/' . $file, $distFolder . '/' . $file);
-                } else {
-                    copy($sourceFolder . '/' . $file, $distFolder . '/' . $file);
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+            $src = $sourceFolder . '/' . $file;
+            $dst = $distFolder . '/' . $file;
+            if (is_dir($src)) {
+                $this->copyRecursively($src, $dst);
+            } else {
+                if (!copy($src, $dst)) {
+                    throw new \RuntimeException('Failed to copy file: ' . $src . ' -> ' . $dst);
                 }
             }
         }
@@ -99,6 +112,8 @@ class AssetHandler
     {
         $this->createDirectoryRecursively($targetDir);
         $filename = $targetDir . '/' . $slug . '.' . $fileExtension;
-        file_put_contents($filename, $content);
+        if (file_put_contents($filename, $content) === false) {
+            throw new \RuntimeException('Failed to write content to ' . $filename);
+        }
     }
 }
