@@ -11,6 +11,8 @@ return json_decode(json_encode([
   "slugs" => [
     "post_index" => "blog", // defines the filename of the index of the latest blog posts should be stored.
     "feed" => "feed",
+    "sitemap" => "sitemap", // filename of the generated XML sitemap (requires base_url to be set).
+    "robots" => "robots", // filename of the generated robots.txt.
   ],
   "tag_path" => "tags", //URL namespace under which tag related index pages are being published
   "menus" => [
@@ -64,4 +66,6 @@ return json_decode(json_encode([
   ],
   "file_extension_content" => "html",
   "file_extension_feed" => "xml",
+  "file_extension_sitemap" => "xml",
+  "file_extension_robots" => "txt",
 ]));

@@ -69,7 +69,7 @@ This document tracks completed improvements, planned features, and useful comman
 - [ ] Video tutorials
 
 ### Features (Maybe)
-- [ ] Sitemap generation
+- [x] ~~Sitemap generation~~ – Auto-generates `sitemap.xml` + `robots.txt` on build (requires `base_url`)
 - [ ] JSON feed support (alongside RSS)
 - [ ] Draft preview mode (build drafts to separate folder)
 - [ ] Incremental builds (only changed content)

@@ -20,6 +20,8 @@ use Simpla\Content\ContentIndexGenerator;
 use Simpla\Content\TagIndexGenerator;
 use Simpla\Content\MenuGenerator;
 use Simpla\Content\FeedGenerator;
+use Simpla\Content\SitemapGenerator;
+use Simpla\Content\RobotsGenerator;
 use Simpla\Asset\AssetHandler;
 use Simpla\Asset\ImageOptimizer;
 use Simpla\Markdown\MarkdownParser;
@@ -109,6 +111,20 @@ $container->feedGenerator = function () use ($container): FeedGenerator {
         $container('config')
     );
     return $feedGenerator;
+};
+
+$container->sitemapGenerator = function () use ($container): SitemapGenerator {
+    return new SitemapGenerator(
+        $container('config')->slugs->sitemap,
+        $container('config')
+    );
+};
+
+$container->robotsGenerator = function () use ($container): RobotsGenerator {
+    return new RobotsGenerator(
+        $container('config')->slugs->robots,
+        $container('config')
+    );
 };
 
 return $container;

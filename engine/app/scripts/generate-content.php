@@ -64,3 +64,23 @@ array_walk($generatedFeed, function ($content, $slug) use ($container) {
         $container('config')->file_extension_feed
     );
 });
+
+$generatedSitemap = $container('sitemapGenerator')->generate($posts, $pages, $tags);
+array_walk($generatedSitemap, function ($content, $slug) use ($container) {
+    $container('assetHandler')->persistContent(
+        $content,
+        $container('config')->folders->dist,
+        $slug,
+        $container('config')->file_extension_sitemap
+    );
+});
+
+$generatedRobots = $container('robotsGenerator')->generate();
+array_walk($generatedRobots, function ($content, $slug) use ($container) {
+    $container('assetHandler')->persistContent(
+        $content,
+        $container('config')->folders->dist,
+        $slug,
+        $container('config')->file_extension_robots
+    );
+});
