@@ -8,6 +8,8 @@
 <body>
   <?php include __DIR__ . '/partials/header.phtml' ?>
 
+  <h1><?= ucfirst($slug) ?></h1>
+
   <?php
     foreach ($entities as $entity) :
       include __DIR__ . '/partials/article.phtml';

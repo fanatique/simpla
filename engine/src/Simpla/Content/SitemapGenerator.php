@@ -54,12 +54,14 @@ class SitemapGenerator implements ContentGeneratorInterface
             $this->appendEntity($urls, $entity, $baseUrl);
         }
 
-        // Blog index (e.g. /blog).
-        $urls[] = ['loc' => $baseUrl . '/' . $this->config->slugs->post_index];
+        $extension = '.' . $this->config->file_extension_content;
 
-        // Tag archive pages (e.g. /tags/blogging).
+        // Blog index (e.g. /blog.html).
+        $urls[] = ['loc' => $baseUrl . '/' . $this->config->slugs->post_index . $extension];
+
+        // Tag archive pages (e.g. /tags/blogging.html).
         foreach (array_keys($tags) as $tagName) {
-            $urls[] = ['loc' => $baseUrl . '/' . $this->config->tag_path . '/' . $tagName];
+            $urls[] = ['loc' => $baseUrl . '/' . $this->config->tag_path . '/' . $tagName . $extension];
         }
 
         return [$this->slug => $this->renderSitemap($urls)];
@@ -77,7 +79,10 @@ class SitemapGenerator implements ContentGeneratorInterface
 
         $loc = $entity->getSlug($baseUrl);
         if ($loc === $baseUrl . '/index') {
+            // Homepage is served from the site root, not /index.html.
             $loc = $baseUrl . '/';
+        } else {
+            $loc .= '.' . $this->config->file_extension_content;
         }
 
         $entry = ['loc' => $loc];

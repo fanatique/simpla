@@ -1,25 +1,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title><?= $config->title ?> – <?php !is_null($entity->get('title')) ? print $entity->get('title') : print $config->tagline; ?></title>
-<meta name="description" content="<?php !is_null($entity->get('description')) ? print $entity->get('description') : print $config->description; ?>">
+<?php
+$pageTitle = (is_object($entity) && !is_null($entity->get('title'))) ? $entity->get('title') : null;
+$metaDescription = (is_object($entity) && !is_null($entity->get('description'))) ? $entity->get('description') : $config->description;
+$ogType = $ogType ?? 'article';
+if (is_object($entity)) {
+    $slugUrl = $entity->getSlug($config->base_url);
+    // Homepage (slug "index") is served from the site root, not /index.html.
+    $canonical = ($slugUrl === $config->base_url . '/index')
+        ? $config->base_url . '/'
+        : $slugUrl . '.' . $config->file_extension_content;
+} else {
+    $canonical = $config->base_url . '/' . $slug . '.' . $config->file_extension_content;
+}
+$documentTitle = ($pageTitle ? htmlspecialchars($pageTitle) . ' | ' : '') . htmlspecialchars($config->title);
+?>
+<title><?= $documentTitle ?></title>
+<meta name="description" content="<?= htmlspecialchars($metaDescription) ?>">
 
-<?php if (is_object($entity)) : ?>
-    <link rel="canonical" href="<?= $entity->getSlug($config->base_url) ?>.<?= $config->file_extension_content ?>" />
-<?php else : ?>
-    <link rel="canonical" href="<?= $config->base_url . '/' . $slug ?>.<?= $config->file_extension_content ?>" />
-<?php endif; ?>
+<link rel="canonical" href="<?= $canonical ?>" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
 <link rel="stylesheet" href="<?= $config->base_url ?>/css/new.theme.simpla.css">
+<?php if (isset($config->manifest)) : ?>
+<link rel="manifest" href="<?= $config->base_url ?>/<?= $config->slugs->manifest ?>.<?= $config->file_extension_manifest ?>">
+<meta name="theme-color" content="<?= $config->manifest->theme_color ?? '#ffffff' ?>">
+<?php endif; ?>
 <script src="<?= $config->base_url ?>/js/main.js" defer></script>
 
-<meta property="og:type" content="article" />
-<meta property="og:title" content="<?= $config->title ?> – <?php !is_null($entity->get('title')) ? print $entity->get('title') : print $config->tagline; ?>" />
-<meta property="og:description" content="<?= $entity->get('description') ?>" />
-<?php if ($entity->get('image') !== null) : ?>
+<meta property="og:type" content="<?= $ogType ?>" />
+<meta property="og:title" content="<?= $documentTitle ?>" />
+<meta property="og:description" content="<?= htmlspecialchars($metaDescription) ?>" />
+<?php if (is_object($entity) && $entity->get('image') !== null) : ?>
     <meta property="og:image" content="<?= $config->base_url ?>/img/<?= $entity->get('image') ?>" />
 <?php endif; ?>
-<meta property="og:url" content="" />
+<meta property="og:url" content="<?= $canonical ?>" />
 
-<meta property="og:site_name" content="<?= $config->title ?>" />
-
+<meta property="og:site_name" content="<?= htmlspecialchars($config->title) ?>" />

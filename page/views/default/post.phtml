@@ -1,5 +1,6 @@
+<?php $ogType = 'article'; ?>
 <!DOCTYPE html>
-<html lang="<?= $config->language ?>">
+<html lang="<?= $entity->get('language') ?? $config->language ?>">
 
 <head>
   <?php include __DIR__ . '/partials/head.phtml' ?>

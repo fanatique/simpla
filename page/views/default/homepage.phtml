@@ -1,11 +1,12 @@
+<?php $ogType = 'website'; ?>
 <!DOCTYPE html>
-<html lang="<?= $config->language ?>">
+<html lang="<?= $entity->get('language') ?? $config->language ?>">
 
 <head>
   <?php include __DIR__ . '/partials/head.phtml' ?>
 </head>
 
-<body><h1>HOMEPAGE</h1>
+<body>
   <?php include __DIR__ . '/partials/header.phtml' ?>
 
   <?php include __DIR__ . '/partials/page-content.phtml' ?>

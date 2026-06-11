@@ -22,6 +22,7 @@ use Simpla\Content\MenuGenerator;
 use Simpla\Content\FeedGenerator;
 use Simpla\Content\SitemapGenerator;
 use Simpla\Content\RobotsGenerator;
+use Simpla\Content\ManifestGenerator;
 use Simpla\Asset\AssetHandler;
 use Simpla\Asset\ImageOptimizer;
 use Simpla\Markdown\MarkdownParser;
@@ -123,6 +124,13 @@ $container->sitemapGenerator = function () use ($container): SitemapGenerator {
 $container->robotsGenerator = function () use ($container): RobotsGenerator {
     return new RobotsGenerator(
         $container('config')->slugs->robots,
+        $container('config')
+    );
+};
+
+$container->manifestGenerator = function () use ($container): ManifestGenerator {
+    return new ManifestGenerator(
+        $container('config')->slugs->manifest,
         $container('config')
     );
 };

@@ -70,6 +70,8 @@ This document tracks completed improvements, planned features, and useful comman
 
 ### Features (Maybe)
 - [x] ~~Sitemap generation~~ – Auto-generates `sitemap.xml` + `robots.txt` on build (requires `base_url`)
+- [x] ~~Web app manifest generation~~ – Auto-generates `site.webmanifest` from config + `<link rel="manifest">` / `theme-color`
+- [x] ~~SEO: feed/sitemap links include `.html`~~ – Fixed extensionless URLs that 404'd
 - [ ] JSON feed support (alongside RSS)
 - [ ] Draft preview mode (build drafts to separate folder)
 - [ ] Incremental builds (only changed content)

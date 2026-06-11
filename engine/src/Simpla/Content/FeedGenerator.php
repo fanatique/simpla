@@ -43,16 +43,18 @@ class FeedGenerator implements ContentGeneratorInterface
 
         foreach ($entities as $entity) {
             $description = $entity->get('description') ?? $entity->get('content');
+            $url = $entity->getSlug($this->config->base_url)
+                . '.' . $this->config->file_extension_content;
 
             $item = new Item();
             $item
                 ->title($entity->get('title'))
                 ->description($description)
                 ->contentEncoded($entity->get('content'))
-                ->url($entity->getSlug($this->config->base_url))
+                ->url($url)
                 ->author($entity->get('author') ?? $this->config->author)
                 ->pubDate($entity->get('created_at')->getTimestamp())
-                ->guid($entity->getSlug($this->config->base_url), true)
+                ->guid($url, true)
                 ->preferCdata(true) // By this, title and description become CDATA wrapped HTML.
                 ->appendTo($this->channel);
         }

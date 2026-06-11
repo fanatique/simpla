@@ -13,6 +13,7 @@ return json_decode(json_encode([
     "feed" => "feed",
     "sitemap" => "sitemap", // filename of the generated XML sitemap (requires base_url to be set).
     "robots" => "robots", // filename of the generated robots.txt.
+    "manifest" => "site", // filename of the generated web app manifest (-> site.webmanifest).
   ],
   "tag_path" => "tags", //URL namespace under which tag related index pages are being published
   "menus" => [
@@ -38,6 +39,16 @@ return json_decode(json_encode([
     "dist_content_images" => __DIR__ . "/../../dist/img",
     "views" => __DIR__ . "/../views/",
     "content" => __DIR__ . "/../content/",
+  ],
+  "manifest" => [ // Web app manifest (site.webmanifest). Remove this block to skip manifest generation.
+    "short_name" => "Simpla", // Short name shown on the home screen / launcher.
+    "display" => "standalone",
+    "theme_color" => "#ffffff", // Also emitted as <meta name="theme-color">.
+    "background_color" => "#ffffff",
+    "icons" => [ // Paths are relative to the site root; provide your own icon files in the theme assets.
+      ["src" => "/img/icon-192.png", "sizes" => "192x192", "type" => "image/png"],
+      ["src" => "/img/icon-512.png", "sizes" => "512x512", "type" => "image/png"],
+    ],
   ],
   "images" => [
     "max_width" => 1920, // Set to null to disable width downscaling
@@ -68,4 +79,5 @@ return json_decode(json_encode([
   "file_extension_feed" => "xml",
   "file_extension_sitemap" => "xml",
   "file_extension_robots" => "txt",
+  "file_extension_manifest" => "webmanifest",
 ]));
